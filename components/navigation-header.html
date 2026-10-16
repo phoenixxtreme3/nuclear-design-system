@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Navigation Header — Nuclear</title>
+<link rel="stylesheet" href="../tokens.css" />
+<link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="../index.html">
+      <img src="../assets/logo.svg" alt="" />
+      <span class="name">Nuclear</span>
+      <span class="version">v0.1</span>
+    </a>
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>
+      <input id="search" type="search" placeholder="Search pages…" autocomplete="off" />
+      <div class="count" id="search-count"></div>
+    </div>
+    <nav class="toc" id="toc">
+      <div class="group" data-group="overview">
+      <div class="group-label">Overview</div>
+        <a href="../index.html" data-label="introduction">Introduction</a>
+      </div>
+      <div class="group" data-group="foundations">
+      <div class="group-label">Foundations</div>
+        <a href="../foundations/colors.html" data-label="color">Color</a>
+        <a href="../foundations/typography.html" data-label="typography">Typography</a>
+        <a href="../foundations/spacing.html" data-label="spacing, radius & size">Spacing, radius &amp; size</a>
+        <a href="../foundations/icons.html" data-label="icons">Icons</a>
+      </div>
+      <div class="group" data-group="components">
+      <div class="group-label">Components</div>
+        <a href="../components/navigation-header.html" class="active" data-label="navigation header">Navigation Header</a>
+        <a href="../components/bottom-tab-bar.html" data-label="bottom tab bar">Bottom Tab Bar</a>
+        <a href="../components/category-filter.html" data-label="category filter">Category Filter</a>
+      </div>
+    </nav>
+    <footer>
+      <a href="https://github.com/phoenixxtreme3/nuclear-design-system">Source on GitHub</a>
+    </footer>
+  </aside>
+
+  <main>
+    <button class="menu-toggle" id="menu-toggle">&#9776; Menu</button>
+
+    <div class="page-header">
+      <p class="page-eyebrow">Components</p>
+      <h1>Navigation Header</h1>
+      <p class="page-intro">The app's top bar — greeting, location, LoveLocal Plus badge, coin balance and search — rendered in two surface variants and reused, with small content swaps, across every top-level screen in the app.</p>
+    </div>
+
+    <section id="preview">
+      <h2>Preview</h2>
+      <div class="card">
+        <h3>Default states</h3>
+        <div class="preview-frame">
+          <div>
+            <div class="variant-label">dark-background = false</div>
+            <div class="mini-header" data-variant="light" id="mh-light"></div>
+          </div>
+          <div>
+            <div class="variant-label">dark-background = true</div>
+            <div class="mini-header" data-variant="dark" id="mh-dark"></div>
+          </div>
+        </div>
+        <a class="cta" href="navigation-header/navigation-header.html">Open full-size demo &rarr;</a>
+      </div>
+    </section>
+
+    <section id="specs">
+      <h2>Specs — tokens used</h2>
+      <div class="card">
+        <table class="spec-table">
+          <tr><th>Role</th><th>Token</th><th>Value</th></tr>
+          <tr><td>Surface, default</td><td><code>bg-surface-subtle</code></td><td>#fafafa</td></tr>
+          <tr><td>Surface, dark-background</td><td><code>bg-inverse</code></td><td>#212121</td></tr>
+          <tr><td>Search field fill</td><td><code>bg-surface</code></td><td>#ffffff</td></tr>
+          <tr><td>Title text, default</td><td><code>nav-top-title</code></td><td>#000000</td></tr>
+          <tr><td>Title text, dark-background</td><td><code>nav-top-title-inverse</code></td><td>#ffffff</td></tr>
+          <tr><td>Address / caption text</td><td><code>content-secondary</code></td><td>#616161</td></tr>
+          <tr><td>Accent (coin figure)</td><td><code>brand-primary</code></td><td>#b8238e</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section id="usage-guidelines">
+      <h2>Usage guidelines</h2>
+      <div class="card">
+        <div class="prose">
+          <p><strong>Do</strong> keep the greeting to one short word ("Home"); use <code>dark-background=true</code> only on an actually dark section; truncate the address line rather than wrapping it.</p>
+          <p><strong>Don't</strong> restyle the search field's radius or fill outside the token values; don't add more than one primary action to the status cluster.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="accessibility">
+      <h2>Accessibility</h2>
+      <div class="card">
+        <ul style="margin:0; padding-left:20px; color:var(--content-secondary); font-size:14.5px; line-height:1.6;">
+          <li>The greeting is a real <code>&lt;button&gt;</code>, not a clickable <code>&lt;div&gt;</code>.</li>
+          <li>Search uses <code>&lt;form role="search"&gt;</code> with a visually-hidden <code>&lt;label&gt;</code>.</li>
+          <li><code>content-secondary</code> on <code>bg-surface-subtle</code> is 5.2:1; <code>content-on-color</code> on <code>bg-inverse</code> is 15.9:1 — both pass WCAG AA.</li>
+          <li>Search and voice-search icon buttons carry an <code>aria-label</code>.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="code">
+      <h2>Usage (HTML &amp; CSS)</h2>
+      <div class="card">
+        <p style="font-size:13px; color:var(--content-secondary); margin:0 0 8px;">Full markup, CSS and a live demo are in <a class="cta" href="navigation-header/">components/navigation-header/</a> in this repo.</p>
+        <pre class="code-block"><code>&lt;link rel="stylesheet" href="/tokens.css" /&gt;
+&lt;link rel="stylesheet" href="/components/navigation-header/navigation-header.css" /&gt;
+
+&lt;header class="nav-header" data-variant="light"&gt;
+  &lt;!-- see navigation-header.html for full markup --&gt;
+&lt;/header&gt;</code></pre>
+      </div>
+    </section>
+
+    <section id="screen-contexts">
+      <h2>Screen contexts</h2>
+      <p class="section-desc">Every screen the Navigation Header appears on, captured directly from Figma — the same component, with its content swapped per screen.</p>
+      <div class="state-gallery">
+<div class="state-item"><div class="shot"><img src="../assets/components/top-home-without-ai.png" alt="Home — top bar" loading="lazy" /></div><div class="meta"><div class="name">Home — top bar</div><div class="desc">Without AI entry point</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-home-with-ai.png" alt="Home — top bar (AI)" loading="lazy" /></div><div class="meta"><div class="name">Home — top bar (AI)</div><div class="desc">With AI entry point</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-home-no-shops-nearby.png" alt="Home — no shops nearby" loading="lazy" /></div><div class="meta"><div class="name">Home — no shops nearby</div><div class="desc">Empty-state top bar</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-shop-without-ai.png" alt="Shop — top bar" loading="lazy" /></div><div class="meta"><div class="name">Shop — top bar</div><div class="desc">Without AI entry point</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-shop-with-ai.png" alt="Shop — top bar (AI)" loading="lazy" /></div><div class="meta"><div class="name">Shop — top bar (AI)</div><div class="desc">With AI entry point</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-shop-l2.png" alt="Shop — L2 category" loading="lazy" /></div><div class="meta"><div class="name">Shop — L2 category</div><div class="desc">Nested category top bar</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-shop-search-flow.png" alt="Shop — search flow" loading="lazy" /></div><div class="meta"><div class="name">Shop — search flow</div><div class="desc">Search in progress</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-orders.png" alt="Orders — top bar" loading="lazy" /></div><div class="meta"><div class="name">Orders — top bar</div><div class="desc">Orders list header</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-checkout.png" alt="Checkout — top bar" loading="lazy" /></div><div class="meta"><div class="name">Checkout — top bar</div><div class="desc">Checkout flow header</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-coins.png" alt="Coins — top bar" loading="lazy" /></div><div class="meta"><div class="name">Coins — top bar</div><div class="desc">LoveLocal Coins header</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-subscription.png" alt="Subscription — top bar" loading="lazy" /></div><div class="meta"><div class="name">Subscription — top bar</div><div class="desc">LoveLocal Plus header</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-account.png" alt="Account — top bar" loading="lazy" /></div><div class="meta"><div class="name">Account — top bar</div><div class="desc">Account section header</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/top-rate-review.png" alt="Rate & review — top bar" loading="lazy" /></div><div class="meta"><div class="name">Rate & review — top bar</div><div class="desc">Post-order review header</div></div></div>
+      </div>
+    </section>
+
+    <script>
+      document.getElementById("mh-light").innerHTML = "<div class=\"row\"><span class=\"greeting\"><svg viewBox=\"0 0 16 16\" fill=\"none\"><g clip-path=\"url(#h)\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.3707 0.260258C7.53762 0.0936147 7.76398 0 8 0C8.23602 0 8.46239 0.0936147 8.6293 0.260258L13.9699 5.59365L15.7501 7.37145C15.9123 7.5391 16.002 7.76364 16 7.99671C15.9979 8.22977 15.9043 8.45272 15.7393 8.61753C15.5743 8.78234 15.351 8.87582 15.1176 8.87785C14.8842 8.87987 14.6594 8.79028 14.4915 8.62836L14.2307 8.36791V14.2222C14.2307 14.6937 14.0432 15.1459 13.7093 15.4793C13.3755 15.8127 12.9227 16 12.4505 16H9.78021C9.54414 16 9.31774 15.9063 9.15081 15.7396C8.98388 15.5729 8.89011 15.3469 8.89011 15.1111V12.4444H7.1099V15.1111C7.1099 15.3469 7.01612 15.5729 6.84919 15.7396C6.68226 15.9063 6.45586 16 6.21979 16H3.54948C3.07734 16 2.62454 15.8127 2.29068 15.4793C1.95683 15.1459 1.76927 14.6937 1.76927 14.2222V8.36791L1.50847 8.62836C1.34059 8.79028 1.11575 8.87987 0.88237 8.87785C0.648987 8.87582 0.425738 8.78234 0.260706 8.61753C0.095673 8.45272 0.00206168 8.22977 3.36483e-05 7.99671C-0.00199438 7.76364 0.0877231 7.5391 0.249863 7.37145L2.03007 5.59365L7.3707 0.260258Z\" fill=\"currentColor\"/></g><defs><clipPath id=\"h\"><rect width=\"16\" height=\"16\" fill=\"white\"/></clipPath></defs></svg> Home <span class=\"chevron\"><svg viewBox=\"0 0 24 24\" fill=\"none\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M17.2071 9.04289C16.8166 8.65237 16.1834 8.65237 15.7929 9.04289L12 12.8358L8.20711 9.04289C7.81658 8.65237 7.18342 8.65237 6.79289 9.04289C6.40237 9.43342 6.40237 10.0666 6.79289 10.4571L11.2929 14.9571C11.6834 15.3476 12.3166 15.3476 12.7071 14.9571L17.2071 10.4571C17.5976 10.0666 17.5976 9.43342 17.2071 9.04289Z\" fill=\"currentColor\"/></svg></span></span><span class=\"status\"><span>MY COINS</span><span class=\"coins\">75</span></span></div><div class=\"address\">EMP 12, Thakur Village, Ka\u2026</div><div class=\"search\"><svg viewBox=\"0 0 24 24\" fill=\"none\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z\" fill=\"currentColor\"/></svg><span class=\"ph\">Search for \u2018onion\u2019</span><svg viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M12 2C12.7956 2 13.5587 2.31607 14.1213 2.87868C14.6839 3.44129 15 4.20435 15 5V11C15 11.7956 14.6839 12.5587 14.1213 13.1213C13.5587 13.6839 12.7956 14 12 14C11.2044 14 10.4413 13.6839 9.87868 13.1213C9.31607 12.5587 9 11.7956 9 11V5C9 4.20435 9.31607 3.44129 9.87868 2.87868C10.4413 2.31607 11.2044 2 12 2ZM19 11C19 14.53 16.39 17.44 13 17.93V21H11V17.93C7.61 17.44 5 14.53 5 11H7C7 12.3261 7.52678 13.5979 8.46447 14.5355C9.40215 15.4732 10.6739 16 12 16C13.3261 16 14.5979 15.4732 15.5355 14.5355C16.4732 13.5979 17 12.3261 17 11H19Z\" fill=\"currentColor\"/></svg></div>";
+      document.getElementById("mh-dark").innerHTML = "<div class=\"row\"><span class=\"greeting\"><svg viewBox=\"0 0 16 16\" fill=\"none\"><g clip-path=\"url(#h)\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M7.3707 0.260258C7.53762 0.0936147 7.76398 0 8 0C8.23602 0 8.46239 0.0936147 8.6293 0.260258L13.9699 5.59365L15.7501 7.37145C15.9123 7.5391 16.002 7.76364 16 7.99671C15.9979 8.22977 15.9043 8.45272 15.7393 8.61753C15.5743 8.78234 15.351 8.87582 15.1176 8.87785C14.8842 8.87987 14.6594 8.79028 14.4915 8.62836L14.2307 8.36791V14.2222C14.2307 14.6937 14.0432 15.1459 13.7093 15.4793C13.3755 15.8127 12.9227 16 12.4505 16H9.78021C9.54414 16 9.31774 15.9063 9.15081 15.7396C8.98388 15.5729 8.89011 15.3469 8.89011 15.1111V12.4444H7.1099V15.1111C7.1099 15.3469 7.01612 15.5729 6.84919 15.7396C6.68226 15.9063 6.45586 16 6.21979 16H3.54948C3.07734 16 2.62454 15.8127 2.29068 15.4793C1.95683 15.1459 1.76927 14.6937 1.76927 14.2222V8.36791L1.50847 8.62836C1.34059 8.79028 1.11575 8.87987 0.88237 8.87785C0.648987 8.87582 0.425738 8.78234 0.260706 8.61753C0.095673 8.45272 0.00206168 8.22977 3.36483e-05 7.99671C-0.00199438 7.76364 0.0877231 7.5391 0.249863 7.37145L2.03007 5.59365L7.3707 0.260258Z\" fill=\"currentColor\"/></g><defs><clipPath id=\"h\"><rect width=\"16\" height=\"16\" fill=\"white\"/></clipPath></defs></svg> Home <span class=\"chevron\"><svg viewBox=\"0 0 24 24\" fill=\"none\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M17.2071 9.04289C16.8166 8.65237 16.1834 8.65237 15.7929 9.04289L12 12.8358L8.20711 9.04289C7.81658 8.65237 7.18342 8.65237 6.79289 9.04289C6.40237 9.43342 6.40237 10.0666 6.79289 10.4571L11.2929 14.9571C11.6834 15.3476 12.3166 15.3476 12.7071 14.9571L17.2071 10.4571C17.5976 10.0666 17.5976 9.43342 17.2071 9.04289Z\" fill=\"currentColor\"/></svg></span></span><span class=\"status\"><span>MY COINS</span><span class=\"coins\">75</span></span></div><div class=\"address\">EMP 12, Thakur Village, Ka\u2026</div><div class=\"search\"><svg viewBox=\"0 0 24 24\" fill=\"none\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z\" fill=\"currentColor\"/></svg><span class=\"ph\">Search for \u2018onion\u2019</span><svg viewBox=\"0 0 24 24\" fill=\"none\"><path d=\"M12 2C12.7956 2 13.5587 2.31607 14.1213 2.87868C14.6839 3.44129 15 4.20435 15 5V11C15 11.7956 14.6839 12.5587 14.1213 13.1213C13.5587 13.6839 12.7956 14 12 14C11.2044 14 10.4413 13.6839 9.87868 13.1213C9.31607 12.5587 9 11.7956 9 11V5C9 4.20435 9.31607 3.44129 9.87868 2.87868C10.4413 2.31607 11.2044 2 12 2ZM19 11C19 14.53 16.39 17.44 13 17.93V21H11V17.93C7.61 17.44 5 14.53 5 11H7C7 12.3261 7.52678 13.5979 8.46447 14.5355C9.40215 15.4732 10.6739 16 12 16C13.3261 16 14.5979 15.4732 15.5355 14.5355C16.4732 13.5979 17 12.3261 17 11H19Z\" fill=\"currentColor\"/></svg></div>";
+    </script>
+
+    <nav class="pagenav">
+<a class="pagenav-link prev" href="../foundations/icons.html"><span class="pagenav-dir">Previous</span><span class="pagenav-title">&larr; Icons</span></a>
+<a class="pagenav-link next" href="../components/bottom-tab-bar.html"><span class="pagenav-dir">Next</span><span class="pagenav-title">Bottom Tab Bar &rarr;</span></a>
+</nav>
+  </main>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>

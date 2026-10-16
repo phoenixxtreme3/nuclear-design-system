@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Typography — Nuclear</title>
+<link rel="stylesheet" href="../tokens.css" />
+<link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="../index.html">
+      <img src="../assets/logo.svg" alt="" />
+      <span class="name">Nuclear</span>
+      <span class="version">v0.1</span>
+    </a>
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>
+      <input id="search" type="search" placeholder="Search pages…" autocomplete="off" />
+      <div class="count" id="search-count"></div>
+    </div>
+    <nav class="toc" id="toc">
+      <div class="group" data-group="overview">
+      <div class="group-label">Overview</div>
+        <a href="../index.html" data-label="introduction">Introduction</a>
+      </div>
+      <div class="group" data-group="foundations">
+      <div class="group-label">Foundations</div>
+        <a href="../foundations/colors.html" data-label="color">Color</a>
+        <a href="../foundations/typography.html" class="active" data-label="typography">Typography</a>
+        <a href="../foundations/spacing.html" data-label="spacing, radius & size">Spacing, radius &amp; size</a>
+        <a href="../foundations/icons.html" data-label="icons">Icons</a>
+      </div>
+      <div class="group" data-group="components">
+      <div class="group-label">Components</div>
+        <a href="../components/navigation-header.html" data-label="navigation header">Navigation Header</a>
+        <a href="../components/bottom-tab-bar.html" data-label="bottom tab bar">Bottom Tab Bar</a>
+        <a href="../components/category-filter.html" data-label="category filter">Category Filter</a>
+      </div>
+    </nav>
+    <footer>
+      <a href="https://github.com/phoenixxtreme3/nuclear-design-system">Source on GitHub</a>
+    </footer>
+  </aside>
+
+  <main>
+    <button class="menu-toggle" id="menu-toggle">&#9776; Menu</button>
+
+    <div class="page-header">
+      <p class="page-eyebrow">Foundations</p>
+      <h1>Typography</h1>
+      <p class="page-intro"><code>var(--font-sans)</code> resolves to "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif — Lato is Nuclear's primary family in Figma, with Helvetica/Arial as the web-safe fallback actually rendered here (no font is loaded from Google Fonts or any other external host). Every text style below is used across the app's navigation surfaces, and is named after its source Figma text style.</p>
+    </div>
+    <section id="type-styles">
+      <h2>Text styles</h2>
+      <div class="type-rows" id="type-rows">
+<div class="type-row"><div class="sample heading-h2-black">Shop by category</div><div class="meta"><code>.heading-h2-black</code><br>18px / 24px · 900</div></div>
+<div class="type-row"><div class="sample heading-h2-bold">Shop by category</div><div class="meta"><code>.heading-h2-bold</code><br>18px / 24px · 700</div></div>
+<div class="type-row"><div class="sample title-large-black">Home</div><div class="meta"><code>.title-large-black</code><br>16px / 20px · 900</div></div>
+<div class="type-row"><div class="sample title-medium-black">75</div><div class="meta"><code>.title-medium-black</code><br>14px / 20px · 900</div></div>
+<div class="type-row"><div class="sample body-large-regular">Search for ‘onion’</div><div class="meta"><code>.body-large-regular</code><br>16px / 24px · 400</div></div>
+<div class="type-row"><div class="sample label-large-black">All Shops</div><div class="meta"><code>.label-large-black</code><br>12px / 16px · 900</div></div>
+<div class="type-row"><div class="sample label-small-black">Fish</div><div class="meta"><code>.label-small-black</code><br>10px / 12px · 900</div></div>
+<div class="type-row"><div class="sample caption-large-regular">EMP 12, Thakur Village, Ka…</div><div class="meta"><code>.caption-large-regular</code><br>12px / 16px · 400</div></div>
+<div class="type-row"><div class="sample overline-small">FEATURED</div><div class="meta"><code>.overline-small</code><br>10px / 12px · 900 · +0.5px</div></div>
+<div class="type-row"><div class="sample overline-xsmall">MY COINS</div><div class="meta"><code>.overline-xsmall</code><br>8px / 10px · 900 · +0.5px</div></div>
+      </div>
+    </section>
+
+    <nav class="pagenav">
+<a class="pagenav-link prev" href="../foundations/colors.html"><span class="pagenav-dir">Previous</span><span class="pagenav-title">&larr; Color</span></a>
+<a class="pagenav-link next" href="../foundations/spacing.html"><span class="pagenav-dir">Next</span><span class="pagenav-title">Spacing, radius &amp; size &rarr;</span></a>
+</nav>
+  </main>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>

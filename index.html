@@ -3,237 +3,39 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Nuclear — LoveLocal design system</title>
+<title>Introduction — Nuclear</title>
 <link rel="stylesheet" href="tokens.css" />
-<style>
-  * { box-sizing: border-box; }
-  html { margin: 0; }
-  body {
-    margin: 0;
-    min-height: 100vh;
-    font-family: var(--font-sans);
-    background: var(--bg-canvas);
-    color: var(--content-primary);
-    display: flex;
-    align-items: flex-start;
-  }
-  code, pre { font-family: "SFMono-Regular", Consolas, Menlo, monospace; }
-
-  /* ---------- Sidebar ---------- */
-  .sidebar {
-    width: 272px;
-    flex: none;
-    height: 100vh;
-    position: sticky;
-    top: 0;
-    overflow-y: auto;
-    background: var(--bg-surface);
-    border-right: 1px solid var(--border-default);
-    padding: var(--space-sm) 0 var(--space-xl);
-    display: flex;
-    flex-direction: column;
-  }
-  .sidebar .brand {
-    display: flex;
-    align-items: center;
-    gap: var(--space-xs);
-    padding: var(--space-sm) var(--space-sm) var(--space-xs);
-  }
-  .sidebar .brand img { height: 24px; width: auto; }
-  .sidebar .brand .name { font-weight: 900; font-size: 16px; }
-  .sidebar .brand .version { font-size: 11px; color: var(--content-secondary); margin-left: auto; }
-
-  .search-box { margin: var(--space-xs) var(--space-sm) var(--space-sm); position: relative; }
-  .search-box input {
-    width: 100%;
-    font-family: inherit;
-    font-size: 13px;
-    padding: 8px 10px 8px 30px;
-    border-radius: 8px;
-    border: 1px solid var(--border-default);
-    background: var(--bg-surface-subtle);
-    color: var(--content-primary);
-  }
-  .search-box input:focus { outline: 2px solid var(--brand-primary); outline-offset: -1px; }
-  .search-box svg { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: var(--content-secondary); pointer-events: none; }
-  .search-box .count { font-size: 11px; color: var(--content-secondary); padding: 0 var(--space-sm); margin-top: 4px; min-height: 14px; }
-
-  nav.toc { padding: 0 8px; flex: 1; }
-  nav.toc .group-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--content-secondary); padding: var(--space-sm) 8px 4px; }
-  nav.toc a {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 7px 8px;
-    border-radius: 8px;
-    color: var(--content-primary);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 500;
-  }
-  nav.toc a:hover { background: var(--bg-surface-subtle); }
-  nav.toc a.active { background: var(--bg-surface-subtle); color: var(--brand-primary); font-weight: 700; }
-  nav.toc a .dot { width: 14px; height: 14px; border-radius: 4px; flex: none; display: inline-block; }
-  nav.toc a[hidden] { display: none; }
-  nav.toc .group[hidden] { display: none; }
-
-  .sidebar footer {
-    padding: var(--space-sm);
-    font-size: 11px;
-    color: var(--content-secondary);
-  }
-  .sidebar footer a { color: inherit; }
-
-  /* ---------- Main content ---------- */
-  main { flex: 1; min-width: 0; max-width: 920px; margin: 0 auto; padding: var(--space-xl) var(--space-xl) calc(var(--space-xl) * 3); }
-
-  .cover {
-    background: var(--bg-inverse);
-    color: var(--content-on-color);
-    border-radius: 20px;
-    padding: var(--space-xl);
-    margin-bottom: calc(var(--space-xl) * 1.5);
-    position: relative;
-    overflow: hidden;
-  }
-  .cover::before {
-    content: "";
-    position: absolute;
-    inset: -20% -10% auto auto;
-    width: 320px;
-    height: 220px;
-    background: var(--brand-primary);
-    border-radius: 24px;
-    opacity: .9;
-  }
-  .cover::after {
-    content: "";
-    position: absolute;
-    right: 40px;
-    bottom: -40px;
-    width: 140px;
-    height: 140px;
-    border-radius: 999px;
-    background: #d81da4;
-    opacity: .5;
-  }
-  .cover .inner { position: relative; }
-  .cover img.mark { height: 56px; width: auto; margin-bottom: var(--space-sm); }
-  .cover h1 { font-size: 36px; line-height: 1.12; font-weight: 900; margin: 0 0 var(--space-xs); max-width: 20ch; }
-  .cover p { font-size: 15px; line-height: 1.5; color: rgb(255 255 255 / 72%); max-width: 52ch; margin: 0; }
-
-  section { scroll-margin-top: var(--space-sm); margin-top: calc(var(--space-xl) * 1.75); }
-  section:first-of-type { margin-top: 0; }
-  section h2 { font-size: 22px; font-weight: 900; margin: 0 0 6px; }
-  section > .section-desc { color: var(--content-secondary); line-height: 1.6; margin: 0 0 var(--space-sm); max-width: 64ch; font-size: 14px; }
-
-  .prose p { line-height: 1.65; color: var(--content-secondary); font-size: 14.5px; }
-  .prose h3 { font-size: 16px; font-weight: 800; margin: var(--space-sm) 0 4px; }
-  .prose ul { margin: 4px 0; padding-left: 20px; color: var(--content-secondary); font-size: 14.5px; line-height: 1.6; }
-  .prose code { background: var(--bg-surface-subtle); border-radius: 4px; padding: 1px 5px; font-size: 13px; }
-
-  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-sm); }
-  .swatch { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; }
-  .swatch .fill { height: 64px; }
-  .swatch .meta { padding: var(--space-xs) var(--space-sm); }
-  .swatch .meta .name { font-size: 12px; font-weight: 700; }
-  .swatch .meta .value { font-size: 11px; color: var(--content-secondary); font-variant-numeric: tabular-nums; }
-
-  .type-rows { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; }
-  .type-row { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: var(--space-sm); padding: var(--space-sm); border-bottom: 1px solid var(--border-default); }
-  .type-row:last-child { border-bottom: 0; }
-  .type-row .sample { color: var(--content-primary); overflow-wrap: anywhere; }
-  .type-row .meta { font-size: 11px; color: var(--content-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
-
-  .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-sm); }
-  .icon-tile { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; padding: var(--space-sm); display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
-  .icon-tile .glyph { width: 28px; height: 28px; color: var(--content-primary); }
-  .icon-tile .glyph svg { width: 100%; height: 100%; display: block; }
-  .icon-tile .name { font-size: 12px; font-weight: 700; }
-  .icon-tile .fig-name { font-size: 10.5px; color: var(--content-secondary); font-family: monospace; }
-
-  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: var(--space-sm); }
-  .gallery-item { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; }
-  .gallery-item .shot { background: var(--bg-canvas); display: flex; align-items: center; justify-content: center; min-height: 140px; max-height: 320px; overflow: hidden; }
-  .gallery-item .shot img { width: 100%; height: auto; display: block; }
-  .gallery-item .meta { padding: var(--space-xs) var(--space-sm); }
-  .gallery-item .meta .name { font-size: 12.5px; font-weight: 700; }
-  .gallery-item .meta .desc { font-size: 11px; color: var(--content-secondary); margin-top: 2px; }
-
-  .card { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 16px; padding: var(--space-xl); }
-  .card + .card { margin-top: var(--space-sm); }
-  .card h3 { margin: 0 0 4px; font-size: 16px; font-weight: 800; }
-  .card .preview-frame { background: var(--bg-canvas); border-radius: 12px; padding: var(--space-xl) var(--space-sm); margin: var(--space-sm) 0; display: flex; flex-direction: column; gap: var(--space-sm); align-items: center; }
-
-  .mini-header { width: 320px; border-radius: 12px; padding: var(--space-sm); background: var(--bg-surface-subtle); }
-  .mini-header[data-variant="dark"] { background: var(--bg-inverse); color: var(--content-on-color); }
-  .mini-header .row { display: flex; align-items: center; justify-content: space-between; }
-  .mini-header .greeting { display: inline-flex; align-items: center; gap: 4px; font-weight: 900; font-size: 15px; }
-  .mini-header .greeting svg { width: 15px; height: 15px; }
-  .mini-header .greeting .chevron { width: 20px; height: 20px; opacity: .7; }
-  .mini-header .status { display: flex; align-items: center; gap: 8px; font-size: 11px; }
-  .mini-header .status .coins { font-weight: 900; color: var(--brand-primary); }
-  .mini-header .address { font-size: 11px; color: var(--content-secondary); margin-top: 4px; }
-  .mini-header[data-variant="dark"] .address { color: rgb(255 255 255 / 72%); }
-  .mini-header .search { display: flex; align-items: center; gap: 8px; background: var(--bg-surface); border-radius: 999px; padding: 8px 12px; margin-top: var(--space-sm); color: var(--content-secondary); }
-  .mini-header .search svg { width: 16px; height: 16px; flex: none; }
-  .mini-header .search span.ph { flex: 1; font-size: 13px; }
-  .variant-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--content-secondary); }
-
-  .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: var(--space-xs); }
-  .spec-table th, .spec-table td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--border-default); }
-  .spec-table th { color: var(--content-secondary); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .3px; }
-
-  a.cta { color: var(--brand-primary); font-weight: 700; text-decoration: none; font-size: 13px; }
-  a.cta:hover { text-decoration: underline; }
-
-  pre.code-block { background: var(--bg-surface-subtle); border: 1px solid var(--border-default); border-radius: 12px; padding: var(--space-sm); overflow-x: auto; font-size: 12.5px; line-height: 1.55; }
-
-  .menu-toggle { display: none; }
-
-  @media (max-width: 860px) {
-    .sidebar { position: fixed; z-index: 20; left: 0; top: 0; transform: translateX(-100%); transition: transform .2s ease; box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0%); }
-    .sidebar.open { transform: translateX(0); box-shadow: 0 0 0 100vmax rgb(0 0 0 / 40%); }
-    main { padding: var(--space-sm) var(--space-sm) calc(var(--space-xl) * 2); max-width: 100%; }
-    .menu-toggle {
-      display: inline-flex; align-items: center; gap: 8px;
-      position: sticky; top: var(--space-xs); z-index: 10;
-      background: var(--bg-surface); border: 1px solid var(--border-default);
-      border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 700;
-      margin-bottom: var(--space-sm); cursor: pointer;
-    }
-    .cover h1 { font-size: 26px; }
-  }
-</style>
+<link rel="stylesheet" href="assets/site.css" />
 </head>
 <body>
   <aside class="sidebar" id="sidebar">
-    <div class="brand">
+    <a class="brand" href="index.html">
       <img src="assets/logo.svg" alt="" />
       <span class="name">Nuclear</span>
       <span class="version">v0.1</span>
-    </div>
+    </a>
     <div class="search-box">
       <svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>
-      <input id="search" type="search" placeholder="Search tokens, components…" autocomplete="off" />
+      <input id="search" type="search" placeholder="Search pages…" autocomplete="off" />
       <div class="count" id="search-count"></div>
     </div>
     <nav class="toc" id="toc">
       <div class="group" data-group="overview">
-        <div class="group-label">Overview</div>
-        <a href="#overview" data-label="overview readme governance">Overview</a>
+      <div class="group-label">Overview</div>
+        <a href="index.html" class="active" data-label="introduction">Introduction</a>
       </div>
       <div class="group" data-group="foundations">
-        <div class="group-label">Foundations</div>
-        <a href="#colors" data-label="colors color brand primary accent content secondary tertiary muted faint bg surface canvas inverse border subtle default emphasis strong strongest contrast nav tab shadow">Colors</a>
-        <a href="#typography" data-label="typography type heading title label body caption overline black bold regular lato helvetica">Typography</a>
-        <a href="#spacing" data-label="spacing space radius 2xs 3xs xs sm md xl icon size">Spacing, radius &amp; size</a>
-        <a href="#icons" data-label="icons icon home chevron search microphone chicken fish fruit grocery meat veg shop type glyphs">Icons</a>
+      <div class="group-label">Foundations</div>
+        <a href="foundations/colors.html" data-label="color">Color</a>
+        <a href="foundations/typography.html" data-label="typography">Typography</a>
+        <a href="foundations/spacing.html" data-label="spacing, radius & size">Spacing, radius &amp; size</a>
+        <a href="foundations/icons.html" data-label="icons">Icons</a>
       </div>
       <div class="group" data-group="components">
-        <div class="group-label">Components</div>
-        <a href="#navigation-header" data-label="navigation header component nav top home status search">Navigation Header</a>
-        <a href="#components-gallery" data-label="components gallery screenshots shop home orders checkout coins subscription account rate review tabs category filter">Navigation — all components</a>
+      <div class="group-label">Components</div>
+        <a href="components/navigation-header.html" data-label="navigation header">Navigation Header</a>
+        <a href="components/bottom-tab-bar.html" data-label="bottom tab bar">Bottom Tab Bar</a>
+        <a href="components/category-filter.html" data-label="category filter">Category Filter</a>
       </div>
     </nav>
     <footer>
@@ -242,20 +44,28 @@
   </aside>
 
   <main>
-    <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
+    <button class="menu-toggle" id="menu-toggle">&#9776; Menu</button>
 
     <div class="cover">
       <div class="inner">
         <img class="mark" src="assets/logo.svg" alt="LoveLocal" />
         <h1>Design tokens &amp; components for the LoveLocal app</h1>
-        <p>Synced from the Nuclear v2.0 Figma file. This release covers base tokens and one component, Navigation Header.</p>
+        <p>Synced from the Nuclear v2.0 Figma file. Browse one topic per page — foundations, then components — using the sidebar or the Previous/Next links at the bottom of each page.</p>
       </div>
     </div>
 
     <section id="overview">
-      <h2>Overview</h2>
+      <div class="page-header">
+        <p class="page-eyebrow">Introduction</p>
+        <h1>What is Nuclear?</h1>
+        <p class="page-intro">Nuclear is LoveLocal's design system — the shared colors, type, spacing and components behind the B2C app. This release covers the base foundation tokens, the full Nuclear v2.0 icon library, and the Navigation surfaces (header, bottom tab bar and category filter), pulled directly from Figma and documented the way you'd expect from a production design system: one topic per page, with an introduction, specs, and usage guidance before the next topic.</p>
+      </div>
       <div class="prose">
-        <p>Nuclear is LoveLocal's design system — the shared colors, type, spacing and components behind the B2C app. This first release covers base tokens and the <strong>Navigation Header</strong> component, pulled directly from the Nuclear v2.0 Figma file.</p>
+        <h3>How this site is organized</h3>
+        <ul>
+          <li><strong>Foundations</strong> — the raw tokens: color, typography, spacing/radius/size, and the icon library. Everything else is built from these.</li>
+          <li><strong>Components</strong> — assembled UI built from the foundations, starting with Navigation Header (fully built out in code), Bottom Tab Bar and Category Filter (documented from their Figma reference).</li>
+        </ul>
         <h3>Governance</h3>
         <ul>
           <li><strong>Source of truth</strong> — Figma is upstream. Changes start there, get design sign-off, then sync into this repo.</li>
@@ -267,319 +77,12 @@
       </div>
     </section>
 
-    <section id="colors">
-      <h2>Colors</h2>
-      <p class="section-desc">One theme today. <code>brand-primary</code> is the single accent, with a small accent ramp for emphasis/subtle states; everything else is a neutral content/background/border ramp plus one inverse surface used by components like the header that need a dark treatment without a full dark theme. <code>nav-*</code> tokens are role aliases for the top bar and bottom tab bar.</p>
-      <div class="swatches" id="color-swatches"></div>
-    </section>
-
-    <section id="typography">
-      <h2>Typography</h2>
-      <p class="section-desc"><code>var(--font-sans)</code> — "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif (Lato is Nuclear's primary family in Figma; Helvetica/Arial are the web-safe fallback). Every text style used across the app's navigation surfaces, each named after its source Figma text style.</p>
-      <div class="type-rows" id="type-rows"></div>
-    </section>
-
-    <section id="spacing">
-      <h2>Spacing, radius &amp; size</h2>
-      <p class="section-desc">A spacing scale, three corner radii, and the default icon size.</p>
-      <table class="spec-table" id="spacing-table"></table>
-    </section>
-
-    <section id="icons">
-      <h2>Icons</h2>
-      <p class="section-desc">Exported directly from Nuclear v2.0 — the Navigation Header glyphs plus the full Shop-type icon set used in the category filter. Each is <code>fill="currentColor"</code>, inheriting whatever text color it sits in.</p>
-      <div class="icon-grid" id="icon-grid"></div>
-    </section>
-
-    <section id="navigation-header">
-      <h2>Navigation Header</h2>
-      <p class="section-desc">The app's top bar on the Home screen — greeting, location, LoveLocal Plus badge, coin balance and search, in two surface variants.</p>
-
-      <div class="card">
-        <h3>Preview</h3>
-        <div class="preview-frame">
-          <div>
-            <div class="variant-label">dark-background = false</div>
-            <div class="mini-header" data-variant="light" id="mh-light"></div>
-          </div>
-          <div>
-            <div class="variant-label">dark-background = true</div>
-            <div class="mini-header" data-variant="dark" id="mh-dark"></div>
-          </div>
-        </div>
-        <a class="cta" href="components/navigation-header/navigation-header.html">Open full-size demo →</a>
-      </div>
-
-      <div class="card">
-        <h3>Specs — tokens used</h3>
-        <table class="spec-table">
-          <tr><th>Role</th><th>Token</th><th>Value</th></tr>
-          <tr><td>Surface, default</td><td><code>bg-surface-subtle</code></td><td>#fafafa</td></tr>
-          <tr><td>Surface, dark-background</td><td><code>bg-inverse</code></td><td>#212121</td></tr>
-          <tr><td>Search field fill</td><td><code>bg-surface</code></td><td>#ffffff</td></tr>
-          <tr><td>Title text, default</td><td><code>nav-top-title</code></td><td>#000000</td></tr>
-          <tr><td>Title text, dark-background</td><td><code>nav-top-title-inverse</code></td><td>#ffffff</td></tr>
-          <tr><td>Address / caption text</td><td><code>content-secondary</code></td><td>#616161</td></tr>
-          <tr><td>Accent (coin figure)</td><td><code>brand-primary</code></td><td>#b8238e</td></tr>
-        </table>
-      </div>
-
-      <div class="card">
-        <h3>Usage guidelines</h3>
-        <div class="prose">
-          <p><strong>Do</strong> keep the greeting to one short word ("Home"); use <code>dark-background=true</code> only on an actually dark section; truncate the address line rather than wrapping it.</p>
-          <p><strong>Don't</strong> restyle the search field's radius or fill outside the token values; don't add more than one primary action to the status cluster.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <h3>Accessibility</h3>
-        <ul style="margin:0; padding-left:20px; color:var(--content-secondary); font-size:14.5px; line-height:1.6;">
-          <li>The greeting is a real <code>&lt;button&gt;</code>, not a clickable <code>&lt;div&gt;</code>.</li>
-          <li>Search uses <code>&lt;form role="search"&gt;</code> with a visually-hidden <code>&lt;label&gt;</code>.</li>
-          <li><code>content-secondary</code> on <code>bg-surface-subtle</code> is 5.2:1; <code>content-on-color</code> on <code>bg-inverse</code> is 15.9:1 — both pass WCAG AA.</li>
-          <li>Search and voice-search icon buttons carry an <code>aria-label</code>.</li>
-        </ul>
-      </div>
-
-      <div class="card">
-        <h3>Usage (HTML &amp; CSS)</h3>
-        <p style="font-size:13px; color:var(--content-secondary); margin:0 0 8px;">Full markup, CSS and a live demo are in <a class="cta" href="components/navigation-header/">components/navigation-header/</a> in this repo.</p>
-        <pre class="code-block"><code>&lt;link rel="stylesheet" href="/tokens.css" /&gt;
-&lt;link rel="stylesheet" href="/components/navigation-header/navigation-header.css" /&gt;
-
-&lt;header class="nav-header" data-variant="light"&gt;
-  &lt;!-- see navigation-header.html for full markup --&gt;
-&lt;/header&gt;</code></pre>
-      </div>
-    </section>
-
-    <section id="components-gallery">
-      <h2>Navigation — all components</h2>
-      <p class="section-desc">Every component found on Nuclear v2.0's Navigation page, captured directly from Figma. Navigation Header above is fully built out in code; the rest are documented here as reference screenshots pending their own HTML/CSS build-out.</p>
-      <div class="gallery-grid" id="gallery-grid"></div>
-    </section>
+    <nav class="pagenav">
+<span class="pagenav-link prev" aria-hidden="true"></span>
+<a class="pagenav-link next" href="foundations/colors.html"><span class="pagenav-dir">Next</span><span class="pagenav-title">Color &rarr;</span></a>
+</nav>
   </main>
 
-  <script>
-    // ---------- data ----------
-    var colorTokens = [
-      ["brand-primary", "#b8238e"],
-      ["brand-accent", "#d81da4"],
-      ["brand-accent-strong", "#9d0b75"],
-      ["brand-accent-subtle", "#fabde9"],
-      ["brand-accent-subtlest", "#fff2fb"],
-      ["content-primary", "#000000"],
-      ["content-secondary", "#616161"],
-      ["content-secondary-strong", "#424242"],
-      ["content-tertiary", "#757575"],
-      ["content-muted", "#9e9e9e"],
-      ["content-faint", "#e0e0e0"],
-      ["content-faintest", "#eeeeee"],
-      ["content-on-color", "#ffffff"],
-      ["bg-surface", "#ffffff"],
-      ["bg-surface-subtle", "#fafafa"],
-      ["bg-surface-muted", "#f5f5f5"],
-      ["bg-canvas", "#eeeeee"],
-      ["bg-inverse", "#212121"],
-      ["border-subtlest", "#f5f5f5"],
-      ["border-subtle", "#eeeeee"],
-      ["border-default", "#e0e0e0"],
-      ["border-emphasis", "#757575"],
-      ["border-strong", "#616161"],
-      ["border-strongest", "#212121"],
-      ["border-contrast", "#000000"],
-      ["nav-top-bg", "#ffffff"],
-      ["nav-top-icon", "#000000"],
-      ["nav-bottom-bg", "#ffffff"],
-      ["nav-tab-icon-selected", "#b8238e"],
-      ["nav-tab-label-selected", "#b8238e"]
-    ];
-    var typeStyles = [
-      ["heading-h2-black", "Shop by category", "18px / 24px · 900"],
-      ["heading-h2-bold", "Shop by category", "18px / 24px · 700"],
-      ["title-large-black", "Home", "16px / 20px · 900"],
-      ["title-medium-black", "75", "14px / 20px · 900"],
-      ["body-large-regular", "Search for ‘onion’", "16px / 24px · 400"],
-      ["label-large-black", "All Shops", "12px / 16px · 900"],
-      ["label-small-black", "Fish", "10px / 12px · 900"],
-      ["caption-large-regular", "EMP 12, Thakur Village, Ka…", "12px / 16px · 400"],
-      ["overline-small", "FEATURED", "10px / 12px · 900 · +0.5px"],
-      ["overline-xsmall", "MY COINS", "8px / 10px · 900 · +0.5px"]
-    ];
-    var spacingTokens = [
-      ["space-3xs", "2px", "Hairline gap"],
-      ["space-2xs", "4px", "Tightest gap — icon to label"],
-      ["space-xs", "8px", "Compact internal padding"],
-      ["space-sm", "12px", "Default gap / section padding"],
-      ["space-md", "16px", "Card internal padding"],
-      ["space-xl", "24px", "Section and page margins"],
-      ["radius-xs", "8px", "Chips, inputs"],
-      ["radius-sm", "12px", "Cards, header"],
-      ["radius-md", "16px", "Large cards, sheets"],
-      ["icon-md", "24px", "Default icon size"]
-    ];
-    var ICONS = {
-      home: '<svg viewBox="0 0 16 16" fill="none"><g clip-path="url(#h)"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.3707 0.260258C7.53762 0.0936147 7.76398 0 8 0C8.23602 0 8.46239 0.0936147 8.6293 0.260258L13.9699 5.59365L15.7501 7.37145C15.9123 7.5391 16.002 7.76364 16 7.99671C15.9979 8.22977 15.9043 8.45272 15.7393 8.61753C15.5743 8.78234 15.351 8.87582 15.1176 8.87785C14.8842 8.87987 14.6594 8.79028 14.4915 8.62836L14.2307 8.36791V14.2222C14.2307 14.6937 14.0432 15.1459 13.7093 15.4793C13.3755 15.8127 12.9227 16 12.4505 16H9.78021C9.54414 16 9.31774 15.9063 9.15081 15.7396C8.98388 15.5729 8.89011 15.3469 8.89011 15.1111V12.4444H7.1099V15.1111C7.1099 15.3469 7.01612 15.5729 6.84919 15.7396C6.68226 15.9063 6.45586 16 6.21979 16H3.54948C3.07734 16 2.62454 15.8127 2.29068 15.4793C1.95683 15.1459 1.76927 14.6937 1.76927 14.2222V8.36791L1.50847 8.62836C1.34059 8.79028 1.11575 8.87987 0.88237 8.87785C0.648987 8.87582 0.425738 8.78234 0.260706 8.61753C0.095673 8.45272 0.00206168 8.22977 3.36483e-05 7.99671C-0.00199438 7.76364 0.0877231 7.5391 0.249863 7.37145L2.03007 5.59365L7.3707 0.260258Z" fill="currentColor"/></g><defs><clipPath id="h"><rect width="16" height="16" fill="white"/></clipPath></defs></svg>',
-      chevron: '<svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.2071 9.04289C16.8166 8.65237 16.1834 8.65237 15.7929 9.04289L12 12.8358L8.20711 9.04289C7.81658 8.65237 7.18342 8.65237 6.79289 9.04289C6.40237 9.43342 6.40237 10.0666 6.79289 10.4571L11.2929 14.9571C11.6834 15.3476 12.3166 15.3476 12.7071 14.9571L17.2071 10.4571C17.5976 10.0666 17.5976 9.43342 17.2071 9.04289Z" fill="currentColor"/></svg>',
-      search: '<svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>',
-      mic: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C12.7956 2 13.5587 2.31607 14.1213 2.87868C14.6839 3.44129 15 4.20435 15 5V11C15 11.7956 14.6839 12.5587 14.1213 13.1213C13.5587 13.6839 12.7956 14 12 14C11.2044 14 10.4413 13.6839 9.87868 13.1213C9.31607 12.5587 9 11.7956 9 11V5C9 4.20435 9.31607 3.44129 9.87868 2.87868C10.4413 2.31607 11.2044 2 12 2ZM19 11C19 14.53 16.39 17.44 13 17.93V21H11V17.93C7.61 17.44 5 14.53 5 11H7C7 12.3261 7.52678 13.5979 8.46447 14.5355C9.40215 15.4732 10.6739 16 12 16C13.3261 16 14.5979 15.4732 15.5355 14.5355C16.4732 13.5979 17 12.3261 17 11H19Z" fill="currentColor"/></svg>',
-      chicken: '<svg viewBox="0 0 24 24" fill="none"><circle cx="16" cy="9" r="6" fill="white"/><path d="M15.7101 4C16.5401 4 17.3301 4.22 18.0001 4.66C19.1401 5.4 19.8401 6.53 20.0001 7.84C20.0573 8.47455 19.975 9.11392 19.7591 9.71334C19.5431 10.3127 19.1988 10.8577 18.7501 11.31C18.0501 12 17.1601 12.44 16.1801 12.54C14.2701 12.74 12.5901 13.5 11.3401 14.77C11.1888 14.9172 10.9861 14.9996 10.7751 14.9996C10.564 14.9996 10.3613 14.9172 10.2101 14.77L9.22006 13.78C9.14995 13.7108 9.09437 13.6282 9.05659 13.5372C9.01881 13.4462 8.99959 13.3485 9.00006 13.25C9.00006 13 9.11006 12.78 9.32006 12.57C10.5301 11.35 11.2701 9.73 11.4501 7.87C11.5801 6.54 12.2901 5.4 13.4501 4.65C14.1101 4.22 14.8901 4 15.7101 4ZM15.7101 2C14.5401 2 13.3701 2.32 12.3601 2.97C10.6001 4.1 9.63006 5.86 9.46006 7.68C9.33006 9 8.83006 10.23 7.91006 11.15L7.88006 11.18C6.72006 12.34 6.72006 14.11 7.81006 15.19L8.80006 16.18C9.35006 16.73 10.0601 17 10.7701 17C11.4801 17 12.2001 16.73 12.7501 16.18C13.7201 15.21 15.0001 14.68 16.3901 14.53C17.7601 14.38 19.1001 13.78 20.1601 12.73C20.8251 12.0659 21.3323 11.2608 21.6442 10.3742C21.9561 9.48759 22.0647 8.54223 21.962 7.60801C21.8592 6.67379 21.5478 5.77462 21.0507 4.977C20.5536 4.17939 19.8835 3.50373 19.0901 3C18.0801 2.33 16.9001 2 15.7101 2ZM6.26006 19.86C6.53006 20.42 6.44006 21.1 5.97006 21.56C5.7665 21.7666 5.50706 21.9093 5.22357 21.9707C4.94007 22.032 4.64484 22.0092 4.3741 21.9052C4.10335 21.8011 3.86886 21.6203 3.69939 21.3849C3.52992 21.1495 3.43284 20.8698 3.42006 20.58C3.13029 20.5672 2.85055 20.4701 2.61516 20.3007C2.37976 20.1312 2.19895 19.8967 2.0949 19.626C1.99085 19.3552 1.96809 19.06 2.0294 18.7765C2.09071 18.493 2.23343 18.2336 2.44006 18.03C2.90006 17.57 3.59006 17.47 4.14006 17.74L6.62006 15.31C6.76006 15.5 6.92006 15.72 7.10006 15.9L8.09006 16.89C8.30006 17.09 8.50006 17.26 8.76006 17.41L6.26006 19.86Z" fill="currentColor"/></svg>',
-      fish: '<svg viewBox="0 0 24 24" fill="none"><g clip-path="url(#fi)"><path d="M11.25 7.125C8.87297 7.69734 6.83672 9.57703 5.61094 10.567C5.25731 10.2394 4.88463 9.9329 4.49484 9.64922C2.79047 8.40422 0.75 8.25 0.75 8.25C0.75 8.25 1.28297 10.6655 2.68875 11.992C1.28297 13.3191 0.75 15.7345 0.75 15.7345C0.75 15.7345 2.79047 15.5803 4.49484 14.3353C4.88134 14.0541 5.25089 13.7503 5.60156 13.4255C6.825 14.4164 8.87063 16.3008 11.25 16.875L10.5 19.5C12.3483 19.1873 14.1966 17.8355 14.94 17.2383C21 16.9688 23.25 13.0781 23.25 12C23.25 10.9688 21 7.03125 14.9583 6.76266C14.2275 6.17719 12.3637 4.815 10.5 4.5L11.25 7.125Z" fill="white" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M19.5 11.9995C19.9142 11.9995 20.25 11.6637 20.25 11.2495C20.25 10.8353 19.9142 10.4995 19.5 10.4995C19.0858 10.4995 18.75 10.8353 18.75 11.2495C18.75 11.6637 19.0858 11.9995 19.5 11.9995Z" fill="currentColor"/><path d="M17.7361 16.6875C16.9096 15.2635 16.4744 13.6464 16.4744 12C16.4744 10.3536 16.9096 8.73646 17.7361 7.3125" stroke="currentColor" stroke-width="1.6" stroke-miterlimit="20" stroke-linecap="round"/></g><defs><clipPath id="fi"><rect width="24" height="24" fill="white"/></clipPath></defs></svg>',
-      fruit: '<svg viewBox="0 0 24 24" fill="none"><g clip-path="url(#fr)"><path d="M1.92356 17.544C1.77952 17.6881 1.66753 17.8609 1.59494 18.0513C1.52234 18.2416 1.49078 18.4451 1.50232 18.6485C1.51386 18.8519 1.56824 19.0505 1.66189 19.2314C1.75555 19.4123 1.88636 19.5714 2.04578 19.6982C4.46708 21.6439 7.51723 22.6354 10.6198 22.4851C13.7224 22.3349 16.6625 21.0534 18.8845 18.8828C21.054 16.661 22.3349 13.7217 22.4851 10.62C22.6354 7.51826 21.6445 4.46889 19.6999 2.04786C19.5733 1.88819 19.4145 1.75707 19.2337 1.66308C19.0529 1.56909 18.8544 1.51436 18.651 1.50247C18.4476 1.49057 18.244 1.52179 18.0535 1.59408C17.863 1.66636 17.69 1.77808 17.5457 1.92191L1.92356 17.544Z" fill="white" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M2.76331 16.7081C4.59831 18.5944 7.10723 19.6749 9.73856 19.7119C12.3699 19.749 14.9083 18.7397 16.7957 16.9059C18.6294 15.0184 19.6385 12.4799 19.6013 9.84859C19.564 7.21726 18.4834 4.70841 16.597 2.87354M14.8001 9.89859H16.1977M12.6991 12.6974L14.0986 14.0968M9.90032 14.7965V16.1941" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></g><defs><clipPath id="fr"><rect width="24" height="24" fill="white"/></clipPath></defs></svg>',
-      grocery: '<svg viewBox="0 0 24 24" fill="none"><path d="M2 22L16 8L2 22ZM3.47 12.53L5 11L6.53 12.53C7.1834 13.186 7.55026 14.0741 7.55026 15C7.55026 15.9259 7.1834 16.814 6.53 17.47L5 19L3.47 17.47C2.8166 16.814 2.44974 15.9259 2.44974 15C2.44974 14.0741 2.8166 13.186 3.47 12.53ZM7.47 8.53L9 7L10.53 8.53C11.1834 9.18598 11.5503 10.0741 11.5503 11C11.5503 11.9259 11.1834 12.814 10.53 13.47L9 15L7.47 13.47C6.8166 12.814 6.44974 11.9259 6.44974 11C6.44974 10.0741 6.8166 9.18598 7.47 8.53ZM11.47 4.53L13 3L14.53 4.53C15.1834 5.18598 15.5503 6.07413 15.5503 7C15.5503 7.92587 15.1834 8.81402 14.53 9.47L13 11L11.47 9.47C10.8166 8.81402 10.4497 7.92587 10.4497 7C10.4497 6.07413 10.8166 5.18598 11.47 4.53ZM20 2H22V4C22 5.06087 21.5786 6.07828 20.8284 6.82843C20.0783 7.57857 19.0609 8 18 8H16V6C16 4.93913 16.4214 3.92172 17.1716 3.17157C17.9217 2.42143 18.9391 2 20 2Z" fill="white"/><path d="M2 22L16 8M16 8H18C19.0609 8 20.0783 7.57857 20.8284 6.82843C21.5786 6.07828 22 5.06087 22 4V2H20C18.9391 2 17.9217 2.42143 17.1716 3.17157C16.4214 3.92172 16 4.93913 16 6V8ZM3.47 12.53L5 11L6.53 12.53C7.1834 13.186 7.55026 14.0741 7.55026 15C7.55026 15.9259 7.1834 16.814 6.53 17.47L5 19L3.47 17.47C2.8166 16.814 2.44974 15.9259 2.44974 15C2.44974 14.0741 2.8166 13.186 3.47 12.53ZM7.47 8.53L9 7L10.53 8.53C11.1834 9.18598 11.5503 10.0741 11.5503 11C11.5503 11.9259 11.1834 12.814 10.53 13.47L9 15L7.47 13.47C6.8166 12.814 6.44974 11.9259 6.44974 11C6.44974 10.0741 6.8166 9.18598 7.47 8.53ZM11.47 4.53L13 3L14.53 4.53C15.1834 5.18598 15.5503 6.07413 15.5503 7C15.5503 7.92587 15.1834 8.81402 14.53 9.47L13 11L11.47 9.47C10.8166 8.81402 10.4497 7.92587 10.4497 7C10.4497 6.07413 10.8166 5.18598 11.47 4.53Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.47 17.47L13 19L11.47 20.53C10.814 21.1834 9.92587 21.5502 9 21.5502C8.07413 21.5502 7.18598 21.1834 6.53 20.53L5 19L6.53 17.47C7.18598 16.8166 8.07413 16.4497 9 16.4497C9.92587 16.4497 10.814 16.8166 11.47 17.47ZM15.47 13.47L17 15L15.47 16.53C14.814 17.1834 13.9259 17.5502 13 17.5502C12.0741 17.5502 11.186 17.1834 10.53 16.53L9 15L10.53 13.47C11.186 12.8166 12.0741 12.4497 13 12.4497C13.9259 12.4497 14.814 12.8166 15.47 13.47ZM19.47 9.46997L21 11L19.47 12.53C18.814 13.1834 17.9259 13.5502 17 13.5502C16.0741 13.5502 15.186 13.1834 14.53 12.53L13 11L14.53 9.46997C15.186 8.81657 16.0741 8.44971 17 8.44971C17.9259 8.44971 18.814 8.81657 19.47 9.46997Z" fill="white" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-      meatfish: '<svg viewBox="0 0 24 24" fill="none"><g clip-path="url(#mf)"><path d="M4.44325 22.2462C8.72015 22.222 12.1738 19.776 12.1567 16.7826C12.1406 13.7891 8.66013 11.3816 4.38378 11.4053" fill="white"/><path d="M4.44325 22.2462C8.72015 22.222 12.1738 19.776 12.1567 16.7826C12.1406 13.7891 8.66013 11.3816 4.38378 11.4053" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M11.9004 15.4169L14.0539 15.4044C14.0524 15.1498 14.1138 14.8987 14.2326 14.6734C14.3513 14.4481 14.5238 14.2556 14.7348 14.1129C14.9457 13.9701 15.1886 13.8817 15.4419 13.8553C15.6952 13.8288 15.9511 13.8653 16.187 13.9614C16.4228 14.0575 16.6313 14.2103 16.7941 14.4062C16.9568 14.6022 17.0686 14.8352 17.1198 15.0847C17.1709 15.3342 17.1597 15.5924 17.0872 15.8366C17.0147 16.0807 16.8831 16.3032 16.704 16.4843C16.8853 16.6633 17.0196 16.8843 17.095 17.1276C17.1705 17.3709 17.1847 17.6291 17.1365 17.8792C17.0884 18.1294 16.9792 18.3638 16.8188 18.5617C16.6583 18.7595 16.4516 18.9148 16.2168 19.0136C15.982 19.1125 15.7264 19.1519 15.4728 19.1284C15.2191 19.1049 14.9752 19.0191 14.7626 18.8788C14.55 18.7385 14.3753 18.5478 14.254 18.3238C14.1326 18.0998 14.0685 17.8494 14.0671 17.5946L12.0735 17.6062M2.09039 16.839C2.10642 19.8325 3.16075 22.254 4.44255 22.2464C5.72601 22.2392 6.75291 19.8068 6.73579 16.8133C6.71977 13.8199 5.66544 11.3983 4.38363 11.406C3.10018 11.4131 2.07327 13.8456 2.09039 16.839ZM4.38268 16.2788L4.38875 17.3739L4.38268 16.2788Z" fill="white"/><path d="M11.9004 15.4169L14.0539 15.4044C14.0524 15.1498 14.1138 14.8987 14.2326 14.6734C14.3513 14.4481 14.5238 14.2556 14.7348 14.1129C14.9457 13.9701 15.1886 13.8817 15.4419 13.8553C15.6952 13.8288 15.9511 13.8653 16.187 13.9614C16.4228 14.0575 16.6313 14.2103 16.7941 14.4062C16.9568 14.6022 17.0686 14.8352 17.1198 15.0847C17.1709 15.3342 17.1597 15.5924 17.0872 15.8366C17.0147 16.0807 16.8831 16.3032 16.704 16.4843C16.8853 16.6633 17.0196 16.8843 17.095 17.1276C17.1705 17.3709 17.1847 17.6291 17.1365 17.8792C17.0884 18.1294 16.9792 18.3638 16.8188 18.5617C16.6583 18.7595 16.4516 18.9148 16.2168 19.0136C15.982 19.1125 15.7264 19.1519 15.4728 19.1284C15.2191 19.1049 14.9752 19.0191 14.7626 18.8788C14.55 18.7385 14.3753 18.5478 14.254 18.3238C14.1326 18.0998 14.0685 17.8494 14.0671 17.5946L12.0735 17.6062M4.38268 16.2788L4.38875 17.3739M2.09039 16.839C2.10642 19.8325 3.16075 22.254 4.44255 22.2464C5.72601 22.2392 6.75291 19.8068 6.73579 16.8133C6.71977 13.8199 5.66544 11.3983 4.38363 11.406C3.10018 11.4131 2.07327 13.8456 2.09039 16.839Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M13.7077 2.75633C11.867 3.19953 10.2902 4.65509 9.34103 5.42171C9.0672 5.16798 8.77861 4.93066 8.47677 4.71099C7.15697 3.74691 5.5769 3.62749 5.5769 3.62749C5.5769 3.62749 5.98962 5.49794 7.0782 6.52518C5.98962 7.55278 5.5769 9.42323 5.5769 9.42323C5.5769 9.42323 7.15697 9.30381 8.47677 8.33973C8.77606 8.12195 9.06222 7.88669 9.33377 7.63518C10.2812 8.40252 11.8652 9.86171 13.7077 10.3064L13.1269 12.3391C14.5582 12.097 15.9894 11.0501 16.5651 10.5877C21.2577 10.379 23 7.36621 23 6.53135C23 5.73279 21.2577 2.68374 16.5793 2.47575C16.0134 2.02238 14.5702 0.967557 13.1269 0.723633L13.7077 2.75633Z" fill="white" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M20.0959 6.53239C20.4167 6.53239 20.6767 6.27237 20.6767 5.95162C20.6767 5.63087 20.4167 5.37085 20.0959 5.37085C19.7752 5.37085 19.5151 5.63087 19.5151 5.95162C19.5151 6.27237 19.7752 6.53239 20.0959 6.53239Z" fill="currentColor"/><path d="M18.7305 10.1613C18.0906 9.05859 17.7535 7.80634 17.7535 6.53143C17.7535 5.25652 18.0906 4.00427 18.7305 2.90161" stroke="currentColor" stroke-width="1.5" stroke-miterlimit="20" stroke-linecap="round"/></g><defs><clipPath id="mf"><rect width="24" height="24" fill="white"/></clipPath></defs></svg>',
-      veg: '<svg viewBox="0 0 24 24" fill="none"><path d="M5.68218 18.3178C8.64649 21.2821 13.5427 21.1936 16.6171 18.1192C20.5392 14.1971 21.0326 8.16342 20.9984 5.07637C20.9984 4.52607 20.7798 3.99831 20.3907 3.60919C20.0016 3.22007 19.4738 3.00147 18.9235 3.00147C15.8365 2.96857 9.80413 3.46073 5.88081 7.38281C2.80643 10.4572 2.71787 15.3535 5.68218 18.3178ZM5.68218 18.3178L3 21M5.68218 18.3178L12.8393 11.1607M15.5227 8.47719L12.8406 11.1594L15.5227 12.0551M12.8406 11.1607L11.9448 8.47719M11.9448 15.6331L10.4608 15.1397C10.0881 15.0154 9.7494 14.8061 9.47161 14.5284C9.19382 14.2506 8.98453 13.9119 8.86031 13.5392L8.36689 12.0551" fill="white" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-    };
-    var iconList = [
-      { key: "home", label: "Home", fig: "Icon/Location/home" },
-      { key: "chevron", label: "Chevron", fig: "Icon/Arrows/chevron" },
-      { key: "search", label: "Search", fig: "Icon/Actions/search" },
-      { key: "mic", label: "Microphone", fig: "Icon/Actions/microphone" },
-      { key: "chicken", label: "Chicken", fig: "Icon/Shop type/chicken" },
-      { key: "fish", label: "Fish", fig: "Icon/Shop type/fish" },
-      { key: "fruit", label: "Fruit", fig: "Icon/Shop type/fruit" },
-      { key: "grocery", label: "Grocery", fig: "Icon/Shop type/grocery" },
-      { key: "meatfish", label: "Meat & Fish", fig: "Icon/Shop type/meat-and-fish" },
-      { key: "veg", label: "Veg", fig: "Icon/Shop type/veg" }
-    ];
-    var galleryItems = [
-      ["top-home-without-ai.png", "Home — top bar", "Without AI entry point"],
-      ["top-home-with-ai.png", "Home — top bar (AI)", "With AI entry point"],
-      ["top-home-no-shops-nearby.png", "Home — no shops nearby", "Empty-state top bar"],
-      ["top-shop-without-ai.png", "Shop — top bar", "Without AI entry point"],
-      ["top-shop-with-ai.png", "Shop — top bar (AI)", "With AI entry point"],
-      ["top-shop-l2.png", "Shop — L2 category", "Nested category top bar"],
-      ["top-shop-search-flow.png", "Shop — search flow", "Search in progress"],
-      ["top-orders.png", "Orders — top bar", "Orders list header"],
-      ["top-checkout.png", "Checkout — top bar", "Checkout flow header"],
-      ["top-coins.png", "Coins — top bar", "LoveLocal Coins header"],
-      ["top-subscription.png", "Subscription — top bar", "LoveLocal Plus header"],
-      ["top-account.png", "Account — top bar", "Account section header"],
-      ["top-rate-review.png", "Rate &amp; review — top bar", "Post-order review header"],
-      ["bottom-shop-subtypes.png", "Bottom tabs — shop subtypes", "Tab bar with shop subtype state"],
-      ["bottom-featured-refer.png", "Bottom tabs — featured/refer", "Tab bar with featured/refer entry"],
-      ["bottom-no-shops-nearby.png", "Bottom tabs — empty state", "Tab bar, no shops nearby"],
-      ["bottom-tabs-all.png", "Bottom tabs — all states", "Composite of every tab icon state"],
-      ["shop-type-animated-icons.png", "Shop-type animated icons", "All shop-type icon variants"],
-      ["category-filter.png", "Category filter (carousel)", "Chip row, selected/unselected"]
-    ];
-
-    // ---------- render: colors ----------
-    var colorGrid = document.getElementById("color-swatches");
-    colorTokens.forEach(function (t) {
-      var el = document.createElement("div");
-      el.className = "swatch";
-      el.innerHTML =
-        '<div class="fill" style="background:' + t[1] + ';border-bottom:1px solid var(--border-default)"></div>' +
-        '<div class="meta"><div class="name">' + t[0] + '</div><div class="value">' + t[1] + '</div></div>';
-      colorGrid.appendChild(el);
-    });
-
-    // ---------- render: typography ----------
-    var typeRows = document.getElementById("type-rows");
-    typeStyles.forEach(function (t) {
-      var row = document.createElement("div");
-      row.className = "type-row";
-      row.innerHTML =
-        '<div class="sample ' + t[0] + '">' + t[1] + '</div>' +
-        '<div class="meta"><code>.' + t[0] + '</code><br>' + t[2] + '</div>';
-      typeRows.appendChild(row);
-    });
-
-    // ---------- render: spacing ----------
-    var spacingTable = document.getElementById("spacing-table");
-    var head = document.createElement("tr");
-    head.innerHTML = "<th>Token</th><th>Value</th><th>Usage</th>";
-    spacingTable.appendChild(head);
-    spacingTokens.forEach(function (s) {
-      var row = document.createElement("tr");
-      row.innerHTML = "<td><code>" + s[0] + "</code></td><td>" + s[1] + "</td><td>" + s[2] + "</td>";
-      spacingTable.appendChild(row);
-    });
-
-    // ---------- render: icons ----------
-    var iconGrid = document.getElementById("icon-grid");
-    iconList.forEach(function (ic) {
-      var tile = document.createElement("div");
-      tile.className = "icon-tile";
-      tile.innerHTML =
-        '<div class="glyph">' + ICONS[ic.key] + '</div>' +
-        '<div class="name">' + ic.label + '</div>' +
-        '<div class="fig-name">' + ic.fig + '</div>';
-      iconGrid.appendChild(tile);
-    });
-
-    // ---------- render: components gallery ----------
-    var galleryGrid = document.getElementById("gallery-grid");
-    galleryItems.forEach(function (g) {
-      var item = document.createElement("div");
-      item.className = "gallery-item";
-      item.innerHTML =
-        '<div class="shot"><img src="assets/components/' + g[0] + '" alt="' + g[1] + '" loading="lazy" /></div>' +
-        '<div class="meta"><div class="name">' + g[1] + '</div><div class="desc">' + g[2] + '</div></div>';
-      galleryGrid.appendChild(item);
-    });
-
-    // ---------- render: mini header previews ----------
-    function miniHeader() {
-      return (
-        '<div class="row">' +
-          '<span class="greeting">' + ICONS.home + ' Home ' +
-            '<span class="chevron">' + ICONS.chevron + '</span></span>' +
-          '<span class="status"><span>MY COINS</span><span class="coins">75</span></span>' +
-        '</div>' +
-        '<div class="address">EMP 12, Thakur Village, Ka…</div>' +
-        '<div class="search">' + ICONS.search + '<span class="ph">Search for ‘onion’</span>' + ICONS.mic + '</div>'
-      );
-    }
-    document.getElementById("mh-light").innerHTML = miniHeader();
-    document.getElementById("mh-dark").innerHTML = miniHeader();
-
-    // ---------- mobile menu ----------
-    var sidebar = document.getElementById("sidebar");
-    document.getElementById("menu-toggle").addEventListener("click", function () {
-      sidebar.classList.toggle("open");
-    });
-    sidebar.addEventListener("click", function (e) {
-      if (e.target.tagName === "A" && window.innerWidth <= 860) sidebar.classList.remove("open");
-    });
-
-    // ---------- search ----------
-    var searchInput = document.getElementById("search");
-    var searchCount = document.getElementById("search-count");
-    var tocLinks = Array.prototype.slice.call(document.querySelectorAll("nav.toc a"));
-    var tocGroups = Array.prototype.slice.call(document.querySelectorAll("nav.toc .group"));
-    searchInput.addEventListener("input", function () {
-      var q = searchInput.value.trim().toLowerCase();
-      var shown = 0;
-      tocLinks.forEach(function (a) {
-        var hay = (a.getAttribute("data-label") || "") + " " + a.textContent;
-        var match = !q || hay.toLowerCase().indexOf(q) !== -1;
-        a.hidden = !match;
-        if (match) shown++;
-      });
-      tocGroups.forEach(function (g) {
-        var anyVisible = Array.prototype.slice.call(g.querySelectorAll("a")).some(function (a) { return !a.hidden; });
-        g.hidden = !anyVisible;
-      });
-      searchCount.textContent = q ? (shown + " match" + (shown === 1 ? "" : "es")) : "";
-    });
-
-    // ---------- active-link highlighting on scroll ----------
-    var sections = Array.prototype.slice.call(document.querySelectorAll("main section[id]"));
-    var byId = {};
-    tocLinks.forEach(function (a) { byId[a.getAttribute("href").slice(1)] = a; });
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          tocLinks.forEach(function (a) { a.classList.remove("active"); });
-          var link = byId[entry.target.id];
-          if (link) link.classList.add("active");
-        }
-      });
-    }, { rootMargin: "-10% 0px -70% 0px" });
-    sections.forEach(function (s) { observer.observe(s); });
-  </script>
+  <script src="assets/site.js"></script>
 </body>
 </html>

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Bottom Tab Bar — Nuclear</title>
+<link rel="stylesheet" href="../tokens.css" />
+<link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="../index.html">
+      <img src="../assets/logo.svg" alt="" />
+      <span class="name">Nuclear</span>
+      <span class="version">v0.1</span>
+    </a>
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>
+      <input id="search" type="search" placeholder="Search pages…" autocomplete="off" />
+      <div class="count" id="search-count"></div>
+    </div>
+    <nav class="toc" id="toc">
+      <div class="group" data-group="overview">
+      <div class="group-label">Overview</div>
+        <a href="../index.html" data-label="introduction">Introduction</a>
+      </div>
+      <div class="group" data-group="foundations">
+      <div class="group-label">Foundations</div>
+        <a href="../foundations/colors.html" data-label="color">Color</a>
+        <a href="../foundations/typography.html" data-label="typography">Typography</a>
+        <a href="../foundations/spacing.html" data-label="spacing, radius & size">Spacing, radius &amp; size</a>
+        <a href="../foundations/icons.html" data-label="icons">Icons</a>
+      </div>
+      <div class="group" data-group="components">
+      <div class="group-label">Components</div>
+        <a href="../components/navigation-header.html" data-label="navigation header">Navigation Header</a>
+        <a href="../components/bottom-tab-bar.html" class="active" data-label="bottom tab bar">Bottom Tab Bar</a>
+        <a href="../components/category-filter.html" data-label="category filter">Category Filter</a>
+      </div>
+    </nav>
+    <footer>
+      <a href="https://github.com/phoenixxtreme3/nuclear-design-system">Source on GitHub</a>
+    </footer>
+  </aside>
+
+  <main>
+    <button class="menu-toggle" id="menu-toggle">&#9776; Menu</button>
+
+    <div class="page-header">
+      <p class="page-eyebrow">Components</p>
+      <h1>Bottom Tab Bar</h1>
+      <p class="page-intro">The app's primary bottom navigation — Home, Shop, Coins, Offers/Refer and Account — using the <code>tab*</code> icon set (see <a class="cta" href="../foundations/icons.html">Icons</a>) with <code>nav-tab-icon-selected</code> / <code>nav-tab-label-selected</code> applied to the active tab.</p>
+    </div>
+
+    <section id="states">
+      <h2>States</h2>
+      <p class="section-desc">Captured directly from Nuclear v2.0's Navigation page in Figma. This component doesn't yet have its own HTML/CSS build-out — these are the reference states to build against.</p>
+      <div class="state-gallery">
+<div class="state-item"><div class="shot"><img src="../assets/components/bottom-shop-subtypes.png" alt="Shop subtypes" loading="lazy" /></div><div class="meta"><div class="name">Shop subtypes</div><div class="desc">Tab bar with the shop-subtype entry state</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/bottom-featured-refer.png" alt="Featured / refer" loading="lazy" /></div><div class="meta"><div class="name">Featured / refer</div><div class="desc">Tab bar with the featured/refer entry state</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/bottom-no-shops-nearby.png" alt="No shops nearby" loading="lazy" /></div><div class="meta"><div class="name">No shops nearby</div><div class="desc">Tab bar in the empty-state context</div></div></div>
+<div class="state-item"><div class="shot"><img src="../assets/components/bottom-tabs-all.png" alt="All tab states" loading="lazy" /></div><div class="meta"><div class="name">All tab states</div><div class="desc">Composite of every tab icon state</div></div></div>
+      </div>
+    </section>
+
+    <section id="specs">
+      <h2>Specs — tokens used</h2>
+      <div class="card">
+        <table class="spec-table">
+          <tr><th>Role</th><th>Token</th><th>Value</th></tr>
+          <tr><td>Bar surface</td><td><code>nav-bottom-bg</code></td><td>#ffffff</td></tr>
+          <tr><td>Selected icon</td><td><code>nav-tab-icon-selected</code></td><td>#b8238e</td></tr>
+          <tr><td>Selected label</td><td><code>nav-tab-label-selected</code></td><td>#b8238e</td></tr>
+          <tr><td>Unselected icon / label</td><td><code>content-secondary</code></td><td>#616161</td></tr>
+          <tr><td>Cart badge (count)</td><td>icon: <code>tabcartcount</code></td><td>brand-colored, not tokenized</td></tr>
+        </table>
+      </div>
+    </section>
+
+    <section id="usage-guidelines">
+      <h2>Usage guidelines</h2>
+      <div class="card">
+        <div class="prose">
+          <p><strong>Do</strong> keep exactly one tab in the selected state at a time; swap the cart icon for <code>tabcartcount</code> only when the cart is non-empty.</p>
+          <p><strong>Don't</strong> change the tab order between screens — the empty-state and shop-subtype variants reorder content inside a tab's own icon, not the tab positions themselves.</p>
+        </div>
+      </div>
+    </section>
+
+    <nav class="pagenav">
+<a class="pagenav-link prev" href="../components/navigation-header.html"><span class="pagenav-dir">Previous</span><span class="pagenav-title">&larr; Navigation Header</span></a>
+<a class="pagenav-link next" href="../components/category-filter.html"><span class="pagenav-dir">Next</span><span class="pagenav-title">Category Filter &rarr;</span></a>
+</nav>
+  </main>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>

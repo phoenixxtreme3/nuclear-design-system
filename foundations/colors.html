@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Color — Nuclear</title>
+<link rel="stylesheet" href="../tokens.css" />
+<link rel="stylesheet" href="../assets/site.css" />
+</head>
+<body>
+  <aside class="sidebar" id="sidebar">
+    <a class="brand" href="../index.html">
+      <img src="../assets/logo.svg" alt="" />
+      <span class="name">Nuclear</span>
+      <span class="version">v0.1</span>
+    </a>
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>
+      <input id="search" type="search" placeholder="Search pages…" autocomplete="off" />
+      <div class="count" id="search-count"></div>
+    </div>
+    <nav class="toc" id="toc">
+      <div class="group" data-group="overview">
+      <div class="group-label">Overview</div>
+        <a href="../index.html" data-label="introduction">Introduction</a>
+      </div>
+      <div class="group" data-group="foundations">
+      <div class="group-label">Foundations</div>
+        <a href="../foundations/colors.html" class="active" data-label="color">Color</a>
+        <a href="../foundations/typography.html" data-label="typography">Typography</a>
+        <a href="../foundations/spacing.html" data-label="spacing, radius & size">Spacing, radius &amp; size</a>
+        <a href="../foundations/icons.html" data-label="icons">Icons</a>
+      </div>
+      <div class="group" data-group="components">
+      <div class="group-label">Components</div>
+        <a href="../components/navigation-header.html" data-label="navigation header">Navigation Header</a>
+        <a href="../components/bottom-tab-bar.html" data-label="bottom tab bar">Bottom Tab Bar</a>
+        <a href="../components/category-filter.html" data-label="category filter">Category Filter</a>
+      </div>
+    </nav>
+    <footer>
+      <a href="https://github.com/phoenixxtreme3/nuclear-design-system">Source on GitHub</a>
+    </footer>
+  </aside>
+
+  <main>
+    <button class="menu-toggle" id="menu-toggle">&#9776; Menu</button>
+
+    <div class="page-header">
+      <p class="page-eyebrow">Foundations</p>
+      <h1>Color</h1>
+      <p class="page-intro">One theme today. <code>brand-primary</code> is the single accent, with a small accent ramp for emphasis/subtle states; everything else is a neutral content/background/border ramp plus one inverse surface used by components like the header that need a dark treatment without a full dark theme. <code>nav-*</code> tokens are role aliases for the top bar and bottom tab bar.</p>
+    </div>
+    <section id="color-tokens">
+      <h2>Tokens</h2>
+      <div class="swatches" id="color-swatches">
+<div class="swatch"><div class="fill" style="background:#b8238e;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">brand-primary</div><div class="value">#b8238e</div></div></div>
+<div class="swatch"><div class="fill" style="background:#d81da4;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">brand-accent</div><div class="value">#d81da4</div></div></div>
+<div class="swatch"><div class="fill" style="background:#9d0b75;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">brand-accent-strong</div><div class="value">#9d0b75</div></div></div>
+<div class="swatch"><div class="fill" style="background:#fabde9;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">brand-accent-subtle</div><div class="value">#fabde9</div></div></div>
+<div class="swatch"><div class="fill" style="background:#fff2fb;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">brand-accent-subtlest</div><div class="value">#fff2fb</div></div></div>
+<div class="swatch"><div class="fill" style="background:#000000;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">content-primary</div><div class="value">#000000</div></div></div>
+<div class="swatch"><div class="fill" style="background:#616161;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">content-secondary</div><div class="value">#616161</div></div></div>
+<div class="swatch"><div class="fill" style="background:#424242;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">content-secondary-strong</div><div class="value">#424242</div></div></div>
+<div class="swatch"><div class="fill" style="background:#757575;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">content-tertiary</div><div class="value">#757575</div></div></div>
+<div class="swatch"><div class="fill" style="background:#9e9e9e;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">content-muted</div><div class="value">#9e9e9e</div></div></div>
+<div class="swatch"><div class="fill" style="background:#e0e0e0;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">content-faint</div><div class="value">#e0e0e0</div></div></div>
+<div class="swatch"><div class="fill" style="background:#eeeeee;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">content-faintest</div><div class="value">#eeeeee</div></div></div>
+<div class="swatch"><div class="fill" style="background:#ffffff;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">content-on-color</div><div class="value">#ffffff</div></div></div>
+<div class="swatch"><div class="fill" style="background:#ffffff;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">bg-surface</div><div class="value">#ffffff</div></div></div>
+<div class="swatch"><div class="fill" style="background:#fafafa;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">bg-surface-subtle</div><div class="value">#fafafa</div></div></div>
+<div class="swatch"><div class="fill" style="background:#f5f5f5;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">bg-surface-muted</div><div class="value">#f5f5f5</div></div></div>
+<div class="swatch"><div class="fill" style="background:#eeeeee;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">bg-canvas</div><div class="value">#eeeeee</div></div></div>
+<div class="swatch"><div class="fill" style="background:#212121;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">bg-inverse</div><div class="value">#212121</div></div></div>
+<div class="swatch"><div class="fill" style="background:#f5f5f5;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">border-subtlest</div><div class="value">#f5f5f5</div></div></div>
+<div class="swatch"><div class="fill" style="background:#eeeeee;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">border-subtle</div><div class="value">#eeeeee</div></div></div>
+<div class="swatch"><div class="fill" style="background:#e0e0e0;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">border-default</div><div class="value">#e0e0e0</div></div></div>
+<div class="swatch"><div class="fill" style="background:#757575;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">border-emphasis</div><div class="value">#757575</div></div></div>
+<div class="swatch"><div class="fill" style="background:#616161;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">border-strong</div><div class="value">#616161</div></div></div>
+<div class="swatch"><div class="fill" style="background:#212121;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">border-strongest</div><div class="value">#212121</div></div></div>
+<div class="swatch"><div class="fill" style="background:#000000;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">border-contrast</div><div class="value">#000000</div></div></div>
+<div class="swatch"><div class="fill" style="background:#ffffff;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">nav-top-bg</div><div class="value">#ffffff</div></div></div>
+<div class="swatch"><div class="fill" style="background:#000000;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">nav-top-icon</div><div class="value">#000000</div></div></div>
+<div class="swatch"><div class="fill" style="background:#ffffff;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">nav-bottom-bg</div><div class="value">#ffffff</div></div></div>
+<div class="swatch"><div class="fill" style="background:#b8238e;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">nav-tab-icon-selected</div><div class="value">#b8238e</div></div></div>
+<div class="swatch"><div class="fill" style="background:#b8238e;border-bottom:1px solid var(--border-default)"></div><div class="meta"><div class="name">nav-tab-label-selected</div><div class="value">#b8238e</div></div></div>
+      </div>
+    </section>
+
+    <nav class="pagenav">
+<a class="pagenav-link prev" href="../index.html"><span class="pagenav-dir">Previous</span><span class="pagenav-title">&larr; Introduction</span></a>
+<a class="pagenav-link next" href="../foundations/typography.html"><span class="pagenav-dir">Next</span><span class="pagenav-title">Typography &rarr;</span></a>
+</nav>
+  </main>
+
+  <script src="../assets/site.js"></script>
+</body>
+</html>
