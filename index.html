@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nuclear — LoveLocal design system</title>
+<link rel="stylesheet" href="tokens.css" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    background: var(--bg-canvas);
+    color: var(--content-primary);
+  }
+  header.site {
+    background: var(--bg-inverse);
+    color: var(--content-on-color);
+    padding: var(--space-xl) var(--space-xl) calc(var(--space-xl) * 1.5);
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 var(--space-xl); }
+  header.site .wrap { padding: 0; }
+  .brand { display: flex; align-items: center; gap: var(--space-sm); }
+  .brand img { height: 32px; width: auto; }
+  .brand span { font-size: 20px; font-weight: 900; }
+  header.site h1 { font-size: 40px; line-height: 1.1; font-weight: 900; margin: var(--space-xl) 0 var(--space-xs); max-width: 20ch; }
+  header.site p { font-size: 16px; line-height: 1.5; color: rgb(255 255 255 / 72%); max-width: 56ch; margin: 0; }
+  nav.links { margin-top: var(--space-xl); display: flex; gap: var(--space-sm); flex-wrap: wrap; }
+  nav.links a {
+    color: var(--content-on-color);
+    text-decoration: none;
+    border: 1px solid rgb(255 255 255 / 30%);
+    border-radius: 999px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  nav.links a.primary { background: var(--brand-primary); border-color: var(--brand-primary); }
+
+  main { padding: var(--space-xl) 0 calc(var(--space-xl) * 2); }
+  section { margin-top: calc(var(--space-xl) * 1.5); }
+  section h2 { font-size: 24px; font-weight: 900; margin: 0 0 var(--space-sm); }
+  section p { color: var(--content-secondary); line-height: 1.6; margin: 0 0 var(--space-sm); max-width: 64ch; }
+
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-sm); }
+  .swatch { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; }
+  .swatch .fill { height: 64px; }
+  .swatch .meta { padding: var(--space-xs) var(--space-sm); }
+  .swatch .meta .name { font-size: 12px; font-weight: 700; }
+  .swatch .meta .value { font-size: 11px; color: var(--content-secondary); font-variant-numeric: tabular-nums; }
+
+  .card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-default);
+    border-radius: 16px;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .card a.cta { align-self: flex-start; color: var(--brand-primary); font-weight: 700; text-decoration: none; font-size: 14px; }
+  .card a.cta:hover { text-decoration: underline; }
+
+  footer { padding: var(--space-xl); text-align: center; color: var(--content-secondary); font-size: 13px; }
+  footer a { color: inherit; }
+
+  @media (max-width: 480px) {
+    header.site h1 { font-size: 30px; }
+  }
+</style>
+</head>
+<body>
+  <header class="site">
+    <div class="wrap">
+      <div class="brand">
+        <img src="assets/logo.svg" alt="LoveLocal" />
+        <span>Nuclear</span>
+      </div>
+      <h1>Design tokens &amp; components for the LoveLocal app</h1>
+      <p>
+        Synced from the Nuclear v2.0 Figma file. This release covers the
+        base tokens and one component, Navigation Header.
+      </p>
+      <nav class="links">
+        <a class="primary" href="components/navigation-header/navigation-header.html">View Navigation Header</a>
+        <a href="https://github.com/phoenixxtreme3/nuclear-design-system">Source on GitHub</a>
+        <a href="README.md">Governance &amp; README</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>Color</h2>
+      <p>One theme today. <code>brand-primary</code> is the single accent; everything else is a neutral ramp plus one inverse surface.</p>
+      <div class="swatches" id="color-swatches"></div>
+    </section>
+
+    <section>
+      <h2>Component</h2>
+      <div class="card">
+        <strong>Navigation Header</strong>
+        <p style="margin:0">
+          The app's top bar on the Home screen — greeting, location, coin
+          balance and search, in light and dark-background variants, built
+          entirely from the tokens above. Markup, CSS and accessibility
+          notes live in the repo.
+        </p>
+        <a class="cta" href="components/navigation-header/navigation-header.html">Open the live demo →</a>
+      </div>
+    </section>
+
+    <section>
+      <h2>Using these tokens</h2>
+      <p>Link <code>tokens.css</code> once at the app level, then reference the custom properties it defines — no build step required.</p>
+      <pre style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;padding:var(--space-sm);overflow-x:auto;font-size:13px;"><code>&lt;link rel="stylesheet" href="/tokens.css" /&gt;
+
+.my-button {
+  background: var(--brand-primary);
+  color: var(--content-on-color);
+  font-family: var(--font-sans);
+}</code></pre>
+    </section>
+  </main>
+
+  <footer>
+    Nuclear design system · <a href="https://github.com/phoenixxtreme3/nuclear-design-system">phoenixxtreme3/nuclear-design-system</a>
+  </footer>
+
+  <script>
+    var tokens = [
+      ["brand-primary", "#b8238e"],
+      ["content-primary", "#000000"],
+      ["content-secondary", "#616161"],
+      ["content-on-color", "#ffffff"],
+      ["bg-surface", "#ffffff"],
+      ["bg-surface-subtle", "#fafafa"],
+      ["bg-canvas", "#eeeeee"],
+      ["bg-inverse", "#212121"],
+      ["border-default", "#e0e0e0"],
+      ["border-emphasis", "#757575"]
+    ];
+    var grid = document.getElementById("color-swatches");
+    tokens.forEach(function (t) {
+      var el = document.createElement("div");
+      el.className = "swatch";
+      el.innerHTML =
+        '<div class="fill" style="background:' + t[1] + ';border-bottom:1px solid var(--border-default)"></div>' +
+        '<div class="meta"><div class="name">' + t[0] + '</div><div class="value">' + t[1] + '</div></div>';
+      grid.appendChild(el);
+    });
+  </script>
+</body>
+</html>
