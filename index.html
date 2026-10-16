@@ -7,175 +7,358 @@
 <link rel="stylesheet" href="tokens.css" />
 <style>
   * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
   body {
-    margin: 0;
     font-family: var(--font-sans);
     background: var(--bg-canvas);
     color: var(--content-primary);
+    display: flex;
   }
-  header.site {
+  code, pre { font-family: "SFMono-Regular", Consolas, Menlo, monospace; }
+
+  /* ---------- Sidebar ---------- */
+  .sidebar {
+    width: 272px;
+    flex: none;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    background: var(--bg-surface);
+    border-right: 1px solid var(--border-default);
+    padding: var(--space-sm) 0 var(--space-xl);
+    display: flex;
+    flex-direction: column;
+  }
+  .sidebar .brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-sm) var(--space-xs);
+  }
+  .sidebar .brand img { height: 24px; width: auto; }
+  .sidebar .brand .name { font-weight: 900; font-size: 16px; }
+  .sidebar .brand .version { font-size: 11px; color: var(--content-secondary); margin-left: auto; }
+
+  .search-box { margin: var(--space-xs) var(--space-sm) var(--space-sm); position: relative; }
+  .search-box input {
+    width: 100%;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 8px 10px 8px 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border-default);
+    background: var(--bg-surface-subtle);
+    color: var(--content-primary);
+  }
+  .search-box input:focus { outline: 2px solid var(--brand-primary); outline-offset: -1px; }
+  .search-box svg { position: absolute; left: 9px; top: 50%; transform: translateY(-50%); width: 14px; height: 14px; color: var(--content-secondary); pointer-events: none; }
+  .search-box .count { font-size: 11px; color: var(--content-secondary); padding: 0 var(--space-sm); margin-top: 4px; min-height: 14px; }
+
+  nav.toc { padding: 0 8px; flex: 1; }
+  nav.toc .group-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--content-secondary); padding: var(--space-sm) 8px 4px; }
+  nav.toc a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 8px;
+    border-radius: 8px;
+    color: var(--content-primary);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+  }
+  nav.toc a:hover { background: var(--bg-surface-subtle); }
+  nav.toc a.active { background: var(--bg-surface-subtle); color: var(--brand-primary); font-weight: 700; }
+  nav.toc a .dot { width: 14px; height: 14px; border-radius: 4px; flex: none; display: inline-block; }
+  nav.toc a[hidden] { display: none; }
+  nav.toc .group[hidden] { display: none; }
+
+  .sidebar footer {
+    padding: var(--space-sm);
+    font-size: 11px;
+    color: var(--content-secondary);
+  }
+  .sidebar footer a { color: inherit; }
+
+  /* ---------- Main content ---------- */
+  main { flex: 1; min-width: 0; max-width: 920px; margin: 0 auto; padding: var(--space-xl) var(--space-xl) calc(var(--space-xl) * 3); }
+
+  .cover {
     background: var(--bg-inverse);
     color: var(--content-on-color);
-    padding: var(--space-xl) var(--space-xl) calc(var(--space-xl) * 1.5);
+    border-radius: 20px;
+    padding: var(--space-xl);
+    margin-bottom: calc(var(--space-xl) * 1.5);
+    position: relative;
+    overflow: hidden;
   }
-  .wrap { max-width: 880px; margin: 0 auto; padding: 0 var(--space-xl); }
-  header.site .wrap { padding: 0; }
-  .brand { display: flex; align-items: center; gap: var(--space-sm); }
-  .brand img { height: 32px; width: auto; }
-  .brand span { font-size: 20px; font-weight: 900; }
-  header.site h1 { font-size: 40px; line-height: 1.1; font-weight: 900; margin: var(--space-xl) 0 var(--space-xs); max-width: 20ch; }
-  header.site p { font-size: 16px; line-height: 1.5; color: rgb(255 255 255 / 72%); max-width: 56ch; margin: 0; }
-  nav.links { margin-top: var(--space-xl); display: flex; gap: var(--space-sm); flex-wrap: wrap; }
-  nav.links a {
-    color: var(--content-on-color);
-    text-decoration: none;
-    border: 1px solid rgb(255 255 255 / 30%);
+  .cover::before {
+    content: "";
+    position: absolute;
+    inset: -20% -10% auto auto;
+    width: 320px;
+    height: 220px;
+    background: var(--brand-primary);
+    border-radius: 24px;
+    opacity: .9;
+  }
+  .cover::after {
+    content: "";
+    position: absolute;
+    right: 40px;
+    bottom: -40px;
+    width: 140px;
+    height: 140px;
     border-radius: 999px;
-    padding: 8px 16px;
-    font-size: 14px;
-    font-weight: 700;
+    background: #d81da4;
+    opacity: .5;
   }
-  nav.links a.primary { background: var(--brand-primary); border-color: var(--brand-primary); }
+  .cover .inner { position: relative; }
+  .cover img.mark { height: 56px; width: auto; margin-bottom: var(--space-sm); }
+  .cover h1 { font-size: 36px; line-height: 1.12; font-weight: 900; margin: 0 0 var(--space-xs); max-width: 20ch; }
+  .cover p { font-size: 15px; line-height: 1.5; color: rgb(255 255 255 / 72%); max-width: 52ch; margin: 0; }
 
-  main { padding: var(--space-xl) 0 calc(var(--space-xl) * 2); }
-  section { margin-top: calc(var(--space-xl) * 1.5); }
-  section h2 { font-size: 24px; font-weight: 900; margin: 0 0 var(--space-sm); }
-  section p { color: var(--content-secondary); line-height: 1.6; margin: 0 0 var(--space-sm); max-width: 64ch; }
+  section { scroll-margin-top: var(--space-sm); margin-top: calc(var(--space-xl) * 1.75); }
+  section:first-of-type { margin-top: 0; }
+  section h2 { font-size: 22px; font-weight: 900; margin: 0 0 6px; }
+  section > .section-desc { color: var(--content-secondary); line-height: 1.6; margin: 0 0 var(--space-sm); max-width: 64ch; font-size: 14px; }
 
-  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-sm); }
+  .prose p { line-height: 1.65; color: var(--content-secondary); font-size: 14.5px; }
+  .prose h3 { font-size: 16px; font-weight: 800; margin: var(--space-sm) 0 4px; }
+  .prose ul { margin: 4px 0; padding-left: 20px; color: var(--content-secondary); font-size: 14.5px; line-height: 1.6; }
+  .prose code { background: var(--bg-surface-subtle); border-radius: 4px; padding: 1px 5px; font-size: 13px; }
+
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-sm); }
   .swatch { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; }
   .swatch .fill { height: 64px; }
   .swatch .meta { padding: var(--space-xs) var(--space-sm); }
   .swatch .meta .name { font-size: 12px; font-weight: 700; }
   .swatch .meta .value { font-size: 11px; color: var(--content-secondary); font-variant-numeric: tabular-nums; }
 
-  .card {
-    background: var(--bg-surface);
-    border: 1px solid var(--border-default);
-    border-radius: 16px;
-    padding: var(--space-xl);
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-sm);
-  }
-  .card a.cta { align-self: flex-start; color: var(--brand-primary); font-weight: 700; text-decoration: none; font-size: 14px; }
-  .card a.cta:hover { text-decoration: underline; }
-
   .type-rows { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; }
-  .type-row { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: var(--space-sm); padding: var(--space-sm) var(--space-sm); border-bottom: 1px solid var(--border-default); }
+  .type-row { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: var(--space-sm); padding: var(--space-sm); border-bottom: 1px solid var(--border-default); }
   .type-row:last-child { border-bottom: 0; }
   .type-row .sample { color: var(--content-primary); overflow-wrap: anywhere; }
-  .type-row .meta { font-size: 11px; color: var(--content-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .type-row .meta code { font-size: 11px; }
+  .type-row .meta { font-size: 11px; color: var(--content-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; text-align: right; }
 
   .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-sm); }
-  .icon-tile { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; padding: var(--space-sm); display: flex; flex-direction: column; align-items: center; gap: var(--space-xs); text-align: center; }
+  .icon-tile { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; padding: var(--space-sm); display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
   .icon-tile .glyph { width: 28px; height: 28px; color: var(--content-primary); }
   .icon-tile .glyph svg { width: 100%; height: 100%; display: block; }
   .icon-tile .name { font-size: 12px; font-weight: 700; }
-  .icon-tile .fig-name { font-size: 11px; color: var(--content-secondary); font-family: monospace; }
+  .icon-tile .fig-name { font-size: 10.5px; color: var(--content-secondary); font-family: monospace; }
 
-  footer { padding: var(--space-xl); text-align: center; color: var(--content-secondary); font-size: 13px; }
-  footer a { color: inherit; }
+  .card { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 16px; padding: var(--space-xl); }
+  .card + .card { margin-top: var(--space-sm); }
+  .card h3 { margin: 0 0 4px; font-size: 16px; font-weight: 800; }
+  .card .preview-frame { background: var(--bg-canvas); border-radius: 12px; padding: var(--space-xl) var(--space-sm); margin: var(--space-sm) 0; display: flex; flex-direction: column; gap: var(--space-sm); align-items: center; }
 
-  @media (max-width: 480px) {
-    header.site h1 { font-size: 30px; }
+  .mini-header { width: 320px; border-radius: 12px; padding: var(--space-sm); background: var(--bg-surface-subtle); }
+  .mini-header[data-variant="dark"] { background: var(--bg-inverse); color: var(--content-on-color); }
+  .mini-header .row { display: flex; align-items: center; justify-content: space-between; }
+  .mini-header .greeting { display: inline-flex; align-items: center; gap: 4px; font-weight: 900; font-size: 15px; }
+  .mini-header .greeting svg { width: 15px; height: 15px; }
+  .mini-header .greeting .chevron { width: 20px; height: 20px; opacity: .7; }
+  .mini-header .status { display: flex; align-items: center; gap: 8px; font-size: 11px; }
+  .mini-header .status .coins { font-weight: 900; color: var(--brand-primary); }
+  .mini-header .address { font-size: 11px; color: var(--content-secondary); margin-top: 4px; }
+  .mini-header[data-variant="dark"] .address { color: rgb(255 255 255 / 72%); }
+  .mini-header .search { display: flex; align-items: center; gap: 8px; background: var(--bg-surface); border-radius: 999px; padding: 8px 12px; margin-top: var(--space-sm); color: var(--content-secondary); }
+  .mini-header .search svg { width: 16px; height: 16px; flex: none; }
+  .mini-header .search span.ph { flex: 1; font-size: 13px; }
+  .variant-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--content-secondary); }
+
+  .spec-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: var(--space-xs); }
+  .spec-table th, .spec-table td { text-align: left; padding: 6px 10px; border-bottom: 1px solid var(--border-default); }
+  .spec-table th { color: var(--content-secondary); font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: .3px; }
+
+  a.cta { color: var(--brand-primary); font-weight: 700; text-decoration: none; font-size: 13px; }
+  a.cta:hover { text-decoration: underline; }
+
+  pre.code-block { background: var(--bg-surface-subtle); border: 1px solid var(--border-default); border-radius: 12px; padding: var(--space-sm); overflow-x: auto; font-size: 12.5px; line-height: 1.55; }
+
+  .menu-toggle { display: none; }
+
+  @media (max-width: 860px) {
+    .sidebar { position: fixed; z-index: 20; left: 0; top: 0; transform: translateX(-100%); transition: transform .2s ease; box-shadow: 0 0 0 100vmax rgb(0 0 0 / 0%); }
+    .sidebar.open { transform: translateX(0); box-shadow: 0 0 0 100vmax rgb(0 0 0 / 40%); }
+    main { padding: var(--space-sm) var(--space-sm) calc(var(--space-xl) * 2); max-width: 100%; }
+    .menu-toggle {
+      display: inline-flex; align-items: center; gap: 8px;
+      position: sticky; top: var(--space-xs); z-index: 10;
+      background: var(--bg-surface); border: 1px solid var(--border-default);
+      border-radius: 999px; padding: 8px 14px; font-size: 13px; font-weight: 700;
+      margin-bottom: var(--space-sm); cursor: pointer;
+    }
+    .cover h1 { font-size: 26px; }
   }
 </style>
 </head>
 <body>
-  <header class="site">
-    <div class="wrap">
-      <div class="brand">
-        <img src="assets/logo.svg" alt="LoveLocal" />
-        <span>Nuclear</span>
-      </div>
-      <h1>Design tokens &amp; components for the LoveLocal app</h1>
-      <p>
-        Synced from the Nuclear v2.0 Figma file. This release covers the
-        base tokens and one component, Navigation Header.
-      </p>
-      <nav class="links">
-        <a class="primary" href="components/navigation-header/navigation-header.html">View Navigation Header</a>
-        <a href="https://github.com/phoenixxtreme3/nuclear-design-system">Source on GitHub</a>
-        <a href="README.md">Governance &amp; README</a>
-      </nav>
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <img src="assets/logo.svg" alt="" />
+      <span class="name">Nuclear</span>
+      <span class="version">v0.1</span>
     </div>
-  </header>
+    <div class="search-box">
+      <svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>
+      <input id="search" type="search" placeholder="Search tokens, components…" autocomplete="off" />
+      <div class="count" id="search-count"></div>
+    </div>
+    <nav class="toc" id="toc">
+      <div class="group" data-group="overview">
+        <div class="group-label">Overview</div>
+        <a href="#overview" data-label="overview readme governance">Overview</a>
+      </div>
+      <div class="group" data-group="foundations">
+        <div class="group-label">Foundations</div>
+        <a href="#colors" data-label="colors color brand-primary content-primary content-secondary content-faintest content-on-color bg-surface bg-surface-subtle bg-canvas bg-inverse border-default border-emphasis border-strongest">Colors</a>
+        <a href="#typography" data-label="typography type title-large-black title-medium-black body-large-regular caption-large-regular overline-xsmall helvetica lato">Typography</a>
+        <a href="#spacing" data-label="spacing space-2xs space-xs space-sm space-xl icon-md">Spacing &amp; size</a>
+        <a href="#icons" data-label="icons icon home chevron search microphone glyphs">Icons</a>
+      </div>
+      <div class="group" data-group="components">
+        <div class="group-label">Components</div>
+        <a href="#navigation-header" data-label="navigation header component nav top home status search">Navigation Header</a>
+      </div>
+    </nav>
+    <footer>
+      <a href="https://github.com/phoenixxtreme3/nuclear-design-system">Source on GitHub</a>
+    </footer>
+  </aside>
 
-  <main class="wrap">
-    <section>
-      <h2>Color</h2>
-      <p>One theme today. <code>brand-primary</code> is the single accent; everything else is a neutral ramp plus one inverse surface.</p>
+  <main>
+    <button class="menu-toggle" id="menu-toggle">☰ Menu</button>
+
+    <div class="cover">
+      <div class="inner">
+        <img class="mark" src="assets/logo.svg" alt="LoveLocal" />
+        <h1>Design tokens &amp; components for the LoveLocal app</h1>
+        <p>Synced from the Nuclear v2.0 Figma file. This release covers base tokens and one component, Navigation Header.</p>
+      </div>
+    </div>
+
+    <section id="overview">
+      <h2>Overview</h2>
+      <div class="prose">
+        <p>Nuclear is LoveLocal's design system — the shared colors, type, spacing and components behind the B2C app. This first release covers base tokens and the <strong>Navigation Header</strong> component, pulled directly from the Nuclear v2.0 Figma file.</p>
+        <h3>Governance</h3>
+        <ul>
+          <li><strong>Source of truth</strong> — Figma is upstream. Changes start there, get design sign-off, then sync into this repo.</li>
+          <li><strong>Versioning</strong> — semver. Patch = corrections, no visible change. Minor = new tokens/components, additive. Major = renamed/removed tokens or breaking changes.</li>
+          <li><strong>Contributing</strong> — propose in Figma first, then open a PR here updating source and docs together. <code>@design-systems</code> is a required reviewer.</li>
+          <li><strong>Deprecation</strong> — marked one minor version before removal, with its replacement noted, removed at the next major version.</li>
+        </ul>
+        <p>Full write-up in the <a class="cta" href="README.md">top-level README</a>.</p>
+      </div>
+    </section>
+
+    <section id="colors">
+      <h2>Colors</h2>
+      <p class="section-desc">One theme today. <code>brand-primary</code> is the single accent; everything else is a neutral ramp plus one inverse surface used by components like the header that need a dark treatment without a full dark theme.</p>
       <div class="swatches" id="color-swatches"></div>
     </section>
 
-    <section>
+    <section id="typography">
       <h2>Typography</h2>
-      <p><code>var(--font-sans)</code> — "Helvetica Neue", Helvetica, Arial, "Lato", sans-serif. Five styles, each named after its source Figma text style.</p>
+      <p class="section-desc"><code>var(--font-sans)</code> — "Helvetica Neue", Helvetica, Arial, "Lato", sans-serif. Five styles, each named after its source Figma text style.</p>
       <div class="type-rows" id="type-rows"></div>
     </section>
 
-    <section>
+    <section id="spacing">
+      <h2>Spacing &amp; size</h2>
+      <p class="section-desc">A four-step spacing scale plus the default icon size.</p>
+      <table class="spec-table" id="spacing-table"></table>
+    </section>
+
+    <section id="icons">
       <h2>Icons</h2>
-      <p>Exported directly from the Nuclear v2.0 Figma instances used inside Navigation Header — not a generic icon set. Each is <code>fill="currentColor"</code>, so it inherits whatever text color it sits in.</p>
+      <p class="section-desc">Exported directly from the Nuclear v2.0 Figma instances used inside Navigation Header — not a generic icon set. Each is <code>fill="currentColor"</code>, inheriting whatever text color it sits in.</p>
       <div class="icon-grid" id="icon-grid"></div>
     </section>
 
-    <section>
-      <h2>Component</h2>
+    <section id="navigation-header">
+      <h2>Navigation Header</h2>
+      <p class="section-desc">The app's top bar on the Home screen — greeting, location, LoveLocal Plus badge, coin balance and search, in two surface variants.</p>
+
       <div class="card">
-        <strong>Navigation Header</strong>
-        <p style="margin:0">
-          The app's top bar on the Home screen — greeting, location, coin
-          balance and search, in light and dark-background variants, built
-          entirely from the tokens above. Markup, CSS and accessibility
-          notes live in the repo.
-        </p>
-        <a class="cta" href="components/navigation-header/navigation-header.html">Open the live demo →</a>
+        <h3>Preview</h3>
+        <div class="preview-frame">
+          <div>
+            <div class="variant-label">dark-background = false</div>
+            <div class="mini-header" data-variant="light" id="mh-light"></div>
+          </div>
+          <div>
+            <div class="variant-label">dark-background = true</div>
+            <div class="mini-header" data-variant="dark" id="mh-dark"></div>
+          </div>
+        </div>
+        <a class="cta" href="components/navigation-header/navigation-header.html">Open full-size demo →</a>
       </div>
-    </section>
 
-    <section>
-      <h2>Using these tokens</h2>
-      <p>Link <code>tokens.css</code> once at the app level, then reference the custom properties it defines — no build step required.</p>
-      <pre style="background:var(--bg-surface);border:1px solid var(--border-default);border-radius:12px;padding:var(--space-sm);overflow-x:auto;font-size:13px;"><code>&lt;link rel="stylesheet" href="/tokens.css" /&gt;
+      <div class="card">
+        <h3>Specs — tokens used</h3>
+        <table class="spec-table">
+          <tr><th>Role</th><th>Token</th><th>Value</th></tr>
+          <tr><td>Surface, default</td><td><code>bg-surface-subtle</code></td><td>#fafafa</td></tr>
+          <tr><td>Surface, dark-background</td><td><code>bg-inverse</code></td><td>#212121</td></tr>
+          <tr><td>Search field fill</td><td><code>bg-surface</code></td><td>#ffffff</td></tr>
+          <tr><td>Title text, default</td><td><code>nav-top-title</code></td><td>#000000</td></tr>
+          <tr><td>Title text, dark-background</td><td><code>nav-top-title-inverse</code></td><td>#ffffff</td></tr>
+          <tr><td>Address / caption text</td><td><code>content-secondary</code></td><td>#616161</td></tr>
+          <tr><td>Accent (coin figure)</td><td><code>brand-primary</code></td><td>#b8238e</td></tr>
+        </table>
+      </div>
 
-.my-button {
-  background: var(--brand-primary);
-  color: var(--content-on-color);
-  font-family: var(--font-sans);
-}</code></pre>
+      <div class="card">
+        <h3>Usage guidelines</h3>
+        <div class="prose">
+          <p><strong>Do</strong> keep the greeting to one short word ("Home"); use <code>dark-background=true</code> only on an actually dark section; truncate the address line rather than wrapping it.</p>
+          <p><strong>Don't</strong> restyle the search field's radius or fill outside the token values; don't add more than one primary action to the status cluster.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Accessibility</h3>
+        <ul style="margin:0; padding-left:20px; color:var(--content-secondary); font-size:14.5px; line-height:1.6;">
+          <li>The greeting is a real <code>&lt;button&gt;</code>, not a clickable <code>&lt;div&gt;</code>.</li>
+          <li>Search uses <code>&lt;form role="search"&gt;</code> with a visually-hidden <code>&lt;label&gt;</code>.</li>
+          <li><code>content-secondary</code> on <code>bg-surface-subtle</code> is 5.2:1; <code>content-on-color</code> on <code>bg-inverse</code> is 15.9:1 — both pass WCAG AA.</li>
+          <li>Search and voice-search icon buttons carry an <code>aria-label</code>.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>Usage (HTML &amp; CSS)</h3>
+        <p style="font-size:13px; color:var(--content-secondary); margin:0 0 8px;">Full markup, CSS and a live demo are in <a class="cta" href="components/navigation-header/">components/navigation-header/</a> in this repo.</p>
+        <pre class="code-block"><code>&lt;link rel="stylesheet" href="/tokens.css" /&gt;
+&lt;link rel="stylesheet" href="/components/navigation-header/navigation-header.css" /&gt;
+
+&lt;header class="nav-header" data-variant="light"&gt;
+  &lt;!-- see navigation-header.html for full markup --&gt;
+&lt;/header&gt;</code></pre>
+      </div>
     </section>
   </main>
 
-  <footer>
-    Nuclear design system · <a href="https://github.com/phoenixxtreme3/nuclear-design-system">phoenixxtreme3/nuclear-design-system</a>
-  </footer>
-
   <script>
-    var tokens = [
+    // ---------- data ----------
+    var colorTokens = [
       ["brand-primary", "#b8238e"],
       ["content-primary", "#000000"],
       ["content-secondary", "#616161"],
+      ["content-faintest", "#eeeeee"],
       ["content-on-color", "#ffffff"],
       ["bg-surface", "#ffffff"],
       ["bg-surface-subtle", "#fafafa"],
       ["bg-canvas", "#eeeeee"],
       ["bg-inverse", "#212121"],
       ["border-default", "#e0e0e0"],
-      ["border-emphasis", "#757575"]
+      ["border-emphasis", "#757575"],
+      ["border-strongest", "#212121"]
     ];
-    var grid = document.getElementById("color-swatches");
-    tokens.forEach(function (t) {
-      var el = document.createElement("div");
-      el.className = "swatch";
-      el.innerHTML =
-        '<div class="fill" style="background:' + t[1] + ';border-bottom:1px solid var(--border-default)"></div>' +
-        '<div class="meta"><div class="name">' + t[0] + '</div><div class="value">' + t[1] + '</div></div>';
-      grid.appendChild(el);
-    });
-
     var typeStyles = [
       ["title-large-black", "Home", "16px / 20px · 900"],
       ["title-medium-black", "75", "14px / 20px · 900"],
@@ -183,6 +366,38 @@
       ["caption-large-regular", "EMP 12, Thakur Village, Ka…", "12px / 16px · 400"],
       ["overline-xsmall", "MY COINS", "8px / 10px · 900 · +0.5px"]
     ];
+    var spacingTokens = [
+      ["space-2xs", "4px", "Tightest gap — icon to label"],
+      ["space-xs", "8px", "Compact internal padding"],
+      ["space-sm", "12px", "Default gap / section padding"],
+      ["space-xl", "24px", "Section and page margins"],
+      ["icon-md", "24px", "Default icon size"]
+    ];
+    var ICONS = {
+      home: '<svg viewBox="0 0 16 16" fill="none"><g clip-path="url(#h)"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.3707 0.260258C7.53762 0.0936147 7.76398 0 8 0C8.23602 0 8.46239 0.0936147 8.6293 0.260258L13.9699 5.59365L15.7501 7.37145C15.9123 7.5391 16.002 7.76364 16 7.99671C15.9979 8.22977 15.9043 8.45272 15.7393 8.61753C15.5743 8.78234 15.351 8.87582 15.1176 8.87785C14.8842 8.87987 14.6594 8.79028 14.4915 8.62836L14.2307 8.36791V14.2222C14.2307 14.6937 14.0432 15.1459 13.7093 15.4793C13.3755 15.8127 12.9227 16 12.4505 16H9.78021C9.54414 16 9.31774 15.9063 9.15081 15.7396C8.98388 15.5729 8.89011 15.3469 8.89011 15.1111V12.4444H7.1099V15.1111C7.1099 15.3469 7.01612 15.5729 6.84919 15.7396C6.68226 15.9063 6.45586 16 6.21979 16H3.54948C3.07734 16 2.62454 15.8127 2.29068 15.4793C1.95683 15.1459 1.76927 14.6937 1.76927 14.2222V8.36791L1.50847 8.62836C1.34059 8.79028 1.11575 8.87987 0.88237 8.87785C0.648987 8.87582 0.425738 8.78234 0.260706 8.61753C0.095673 8.45272 0.00206168 8.22977 3.36483e-05 7.99671C-0.00199438 7.76364 0.0877231 7.5391 0.249863 7.37145L2.03007 5.59365L7.3707 0.260258Z" fill="currentColor"/></g><defs><clipPath id="h"><rect width="16" height="16" fill="white"/></clipPath></defs></svg>',
+      chevron: '<svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.2071 9.04289C16.8166 8.65237 16.1834 8.65237 15.7929 9.04289L12 12.8358L8.20711 9.04289C7.81658 8.65237 7.18342 8.65237 6.79289 9.04289C6.40237 9.43342 6.40237 10.0666 6.79289 10.4571L11.2929 14.9571C11.6834 15.3476 12.3166 15.3476 12.7071 14.9571L17.2071 10.4571C17.5976 10.0666 17.5976 9.43342 17.2071 9.04289Z" fill="currentColor"/></svg>',
+      search: '<svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>',
+      mic: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C12.7956 2 13.5587 2.31607 14.1213 2.87868C14.6839 3.44129 15 4.20435 15 5V11C15 11.7956 14.6839 12.5587 14.1213 13.1213C13.5587 13.6839 12.7956 14 12 14C11.2044 14 10.4413 13.6839 9.87868 13.1213C9.31607 12.5587 9 11.7956 9 11V5C9 4.20435 9.31607 3.44129 9.87868 2.87868C10.4413 2.31607 11.2044 2 12 2ZM19 11C19 14.53 16.39 17.44 13 17.93V21H11V17.93C7.61 17.44 5 14.53 5 11H7C7 12.3261 7.52678 13.5979 8.46447 14.5355C9.40215 15.4732 10.6739 16 12 16C13.3261 16 14.5979 15.4732 15.5355 14.5355C16.4732 13.5979 17 12.3261 17 11H19Z" fill="currentColor"/></svg>'
+    };
+    var iconList = [
+      { key: "home", label: "Home", fig: "Icon/Location/home" },
+      { key: "chevron", label: "Chevron", fig: "Icon/Arrows/chevron" },
+      { key: "search", label: "Search", fig: "Icon/Actions/search" },
+      { key: "mic", label: "Microphone", fig: "Icon/Actions/microphone" }
+    ];
+
+    // ---------- render: colors ----------
+    var colorGrid = document.getElementById("color-swatches");
+    colorTokens.forEach(function (t) {
+      var el = document.createElement("div");
+      el.className = "swatch";
+      el.innerHTML =
+        '<div class="fill" style="background:' + t[1] + ';border-bottom:1px solid var(--border-default)"></div>' +
+        '<div class="meta"><div class="name">' + t[0] + '</div><div class="value">' + t[1] + '</div></div>';
+      colorGrid.appendChild(el);
+    });
+
+    // ---------- render: typography ----------
     var typeRows = document.getElementById("type-rows");
     typeStyles.forEach(function (t) {
       var row = document.createElement("div");
@@ -193,22 +408,88 @@
       typeRows.appendChild(row);
     });
 
-    var icons = [
-      { name: "home", label: "Home", fig: "Icon/Location/home", svg: '<svg viewBox="0 0 16 16" fill="none"><g clip-path="url(#h)"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.3707 0.260258C7.53762 0.0936147 7.76398 0 8 0C8.23602 0 8.46239 0.0936147 8.6293 0.260258L13.9699 5.59365L15.7501 7.37145C15.9123 7.5391 16.002 7.76364 16 7.99671C15.9979 8.22977 15.9043 8.45272 15.7393 8.61753C15.5743 8.78234 15.351 8.87582 15.1176 8.87785C14.8842 8.87987 14.6594 8.79028 14.4915 8.62836L14.2307 8.36791V14.2222C14.2307 14.6937 14.0432 15.1459 13.7093 15.4793C13.3755 15.8127 12.9227 16 12.4505 16H9.78021C9.54414 16 9.31774 15.9063 9.15081 15.7396C8.98388 15.5729 8.89011 15.3469 8.89011 15.1111V12.4444H7.1099V15.1111C7.1099 15.3469 7.01612 15.5729 6.84919 15.7396C6.68226 15.9063 6.45586 16 6.21979 16H3.54948C3.07734 16 2.62454 15.8127 2.29068 15.4793C1.95683 15.1459 1.76927 14.6937 1.76927 14.2222V8.36791L1.50847 8.62836C1.34059 8.79028 1.11575 8.87987 0.88237 8.87785C0.648987 8.87582 0.425738 8.78234 0.260706 8.61753C0.095673 8.45272 0.00206168 8.22977 3.36483e-05 7.99671C-0.00199438 7.76364 0.0877231 7.5391 0.249863 7.37145L2.03007 5.59365L7.3707 0.260258Z" fill="currentColor"/></g><defs><clipPath id="h"><rect width="16" height="16" fill="white"/></clipPath></defs></svg>' },
-      { name: "chevron", label: "Chevron", fig: "Icon/Arrows/chevron", svg: '<svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.2071 9.04289C16.8166 8.65237 16.1834 8.65237 15.7929 9.04289L12 12.8358L8.20711 9.04289C7.81658 8.65237 7.18342 8.65237 6.79289 9.04289C6.40237 9.43342 6.40237 10.0666 6.79289 10.4571L11.2929 14.9571C11.6834 15.3476 12.3166 15.3476 12.7071 14.9571L17.2071 10.4571C17.5976 10.0666 17.5976 9.43342 17.2071 9.04289Z" fill="currentColor"/></svg>' },
-      { name: "search", label: "Search", fig: "Icon/Actions/search", svg: '<svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>' },
-      { name: "mic", label: "Microphone", fig: "Icon/Actions/microphone", svg: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C12.7956 2 13.5587 2.31607 14.1213 2.87868C14.6839 3.44129 15 4.20435 15 5V11C15 11.7956 14.6839 12.5587 14.1213 13.1213C13.5587 13.6839 12.7956 14 12 14C11.2044 14 10.4413 13.6839 9.87868 13.1213C9.31607 12.5587 9 11.7956 9 11V5C9 4.20435 9.31607 3.44129 9.87868 2.87868C10.4413 2.31607 11.2044 2 12 2ZM19 11C19 14.53 16.39 17.44 13 17.93V21H11V17.93C7.61 17.44 5 14.53 5 11H7C7 12.3261 7.52678 13.5979 8.46447 14.5355C9.40215 15.4732 10.6739 16 12 16C13.3261 16 14.5979 15.4732 15.5355 14.5355C16.4732 13.5979 17 12.3261 17 11H19Z" fill="currentColor"/></svg>' }
-    ];
+    // ---------- render: spacing ----------
+    var spacingTable = document.getElementById("spacing-table");
+    var head = document.createElement("tr");
+    head.innerHTML = "<th>Token</th><th>Value</th><th>Usage</th>";
+    spacingTable.appendChild(head);
+    spacingTokens.forEach(function (s) {
+      var row = document.createElement("tr");
+      row.innerHTML = "<td><code>" + s[0] + "</code></td><td>" + s[1] + "</td><td>" + s[2] + "</td>";
+      spacingTable.appendChild(row);
+    });
+
+    // ---------- render: icons ----------
     var iconGrid = document.getElementById("icon-grid");
-    icons.forEach(function (ic) {
+    iconList.forEach(function (ic) {
       var tile = document.createElement("div");
       tile.className = "icon-tile";
       tile.innerHTML =
-        '<div class="glyph">' + ic.svg + '</div>' +
+        '<div class="glyph">' + ICONS[ic.key] + '</div>' +
         '<div class="name">' + ic.label + '</div>' +
         '<div class="fig-name">' + ic.fig + '</div>';
       iconGrid.appendChild(tile);
     });
+
+    // ---------- render: mini header previews ----------
+    function miniHeader() {
+      return (
+        '<div class="row">' +
+          '<span class="greeting">' + ICONS.home + ' Home ' +
+            '<span class="chevron">' + ICONS.chevron + '</span></span>' +
+          '<span class="status"><span>MY COINS</span><span class="coins">75</span></span>' +
+        '</div>' +
+        '<div class="address">EMP 12, Thakur Village, Ka…</div>' +
+        '<div class="search">' + ICONS.search + '<span class="ph">Search for ‘onion’</span>' + ICONS.mic + '</div>'
+      );
+    }
+    document.getElementById("mh-light").innerHTML = miniHeader();
+    document.getElementById("mh-dark").innerHTML = miniHeader();
+
+    // ---------- mobile menu ----------
+    var sidebar = document.getElementById("sidebar");
+    document.getElementById("menu-toggle").addEventListener("click", function () {
+      sidebar.classList.toggle("open");
+    });
+    sidebar.addEventListener("click", function (e) {
+      if (e.target.tagName === "A" && window.innerWidth <= 860) sidebar.classList.remove("open");
+    });
+
+    // ---------- search ----------
+    var searchInput = document.getElementById("search");
+    var searchCount = document.getElementById("search-count");
+    var tocLinks = Array.prototype.slice.call(document.querySelectorAll("nav.toc a"));
+    var tocGroups = Array.prototype.slice.call(document.querySelectorAll("nav.toc .group"));
+    searchInput.addEventListener("input", function () {
+      var q = searchInput.value.trim().toLowerCase();
+      var shown = 0;
+      tocLinks.forEach(function (a) {
+        var hay = (a.getAttribute("data-label") || "") + " " + a.textContent;
+        var match = !q || hay.toLowerCase().indexOf(q) !== -1;
+        a.hidden = !match;
+        if (match) shown++;
+      });
+      tocGroups.forEach(function (g) {
+        var anyVisible = Array.prototype.slice.call(g.querySelectorAll("a")).some(function (a) { return !a.hidden; });
+        g.hidden = !anyVisible;
+      });
+      searchCount.textContent = q ? (shown + " match" + (shown === 1 ? "" : "es")) : "";
+    });
+
+    // ---------- active-link highlighting on scroll ----------
+    var sections = Array.prototype.slice.call(document.querySelectorAll("main section[id]"));
+    var byId = {};
+    tocLinks.forEach(function (a) { byId[a.getAttribute("href").slice(1)] = a; });
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          tocLinks.forEach(function (a) { a.classList.remove("active"); });
+          var link = byId[entry.target.id];
+          if (link) link.classList.add("active");
+        }
+      });
+    }, { rootMargin: "-10% 0px -70% 0px" });
+    sections.forEach(function (s) { observer.observe(s); });
   </script>
 </body>
 </html>
