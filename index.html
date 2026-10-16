@@ -61,6 +61,20 @@
   .card a.cta { align-self: flex-start; color: var(--brand-primary); font-weight: 700; text-decoration: none; font-size: 14px; }
   .card a.cta:hover { text-decoration: underline; }
 
+  .type-rows { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; overflow: hidden; }
+  .type-row { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: var(--space-sm); padding: var(--space-sm) var(--space-sm); border-bottom: 1px solid var(--border-default); }
+  .type-row:last-child { border-bottom: 0; }
+  .type-row .sample { color: var(--content-primary); overflow-wrap: anywhere; }
+  .type-row .meta { font-size: 11px; color: var(--content-secondary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .type-row .meta code { font-size: 11px; }
+
+  .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--space-sm); }
+  .icon-tile { background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 12px; padding: var(--space-sm); display: flex; flex-direction: column; align-items: center; gap: var(--space-xs); text-align: center; }
+  .icon-tile .glyph { width: 28px; height: 28px; color: var(--content-primary); }
+  .icon-tile .glyph svg { width: 100%; height: 100%; display: block; }
+  .icon-tile .name { font-size: 12px; font-weight: 700; }
+  .icon-tile .fig-name { font-size: 11px; color: var(--content-secondary); font-family: monospace; }
+
   footer { padding: var(--space-xl); text-align: center; color: var(--content-secondary); font-size: 13px; }
   footer a { color: inherit; }
 
@@ -94,6 +108,18 @@
       <h2>Color</h2>
       <p>One theme today. <code>brand-primary</code> is the single accent; everything else is a neutral ramp plus one inverse surface.</p>
       <div class="swatches" id="color-swatches"></div>
+    </section>
+
+    <section>
+      <h2>Typography</h2>
+      <p><code>var(--font-sans)</code> — "Helvetica Neue", Helvetica, Arial, "Lato", sans-serif. Five styles, each named after its source Figma text style.</p>
+      <div class="type-rows" id="type-rows"></div>
+    </section>
+
+    <section>
+      <h2>Icons</h2>
+      <p>Exported directly from the Nuclear v2.0 Figma instances used inside Navigation Header — not a generic icon set. Each is <code>fill="currentColor"</code>, so it inherits whatever text color it sits in.</p>
+      <div class="icon-grid" id="icon-grid"></div>
     </section>
 
     <section>
@@ -148,6 +174,40 @@
         '<div class="fill" style="background:' + t[1] + ';border-bottom:1px solid var(--border-default)"></div>' +
         '<div class="meta"><div class="name">' + t[0] + '</div><div class="value">' + t[1] + '</div></div>';
       grid.appendChild(el);
+    });
+
+    var typeStyles = [
+      ["title-large-black", "Home", "16px / 20px · 900"],
+      ["title-medium-black", "75", "14px / 20px · 900"],
+      ["body-large-regular", "Search for ‘onion’", "16px / 24px · 400"],
+      ["caption-large-regular", "EMP 12, Thakur Village, Ka…", "12px / 16px · 400"],
+      ["overline-xsmall", "MY COINS", "8px / 10px · 900 · +0.5px"]
+    ];
+    var typeRows = document.getElementById("type-rows");
+    typeStyles.forEach(function (t) {
+      var row = document.createElement("div");
+      row.className = "type-row";
+      row.innerHTML =
+        '<div class="sample ' + t[0] + '">' + t[1] + '</div>' +
+        '<div class="meta"><code>.' + t[0] + '</code><br>' + t[2] + '</div>';
+      typeRows.appendChild(row);
+    });
+
+    var icons = [
+      { name: "home", label: "Home", fig: "Icon/Location/home", svg: '<svg viewBox="0 0 16 16" fill="none"><g clip-path="url(#h)"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.3707 0.260258C7.53762 0.0936147 7.76398 0 8 0C8.23602 0 8.46239 0.0936147 8.6293 0.260258L13.9699 5.59365L15.7501 7.37145C15.9123 7.5391 16.002 7.76364 16 7.99671C15.9979 8.22977 15.9043 8.45272 15.7393 8.61753C15.5743 8.78234 15.351 8.87582 15.1176 8.87785C14.8842 8.87987 14.6594 8.79028 14.4915 8.62836L14.2307 8.36791V14.2222C14.2307 14.6937 14.0432 15.1459 13.7093 15.4793C13.3755 15.8127 12.9227 16 12.4505 16H9.78021C9.54414 16 9.31774 15.9063 9.15081 15.7396C8.98388 15.5729 8.89011 15.3469 8.89011 15.1111V12.4444H7.1099V15.1111C7.1099 15.3469 7.01612 15.5729 6.84919 15.7396C6.68226 15.9063 6.45586 16 6.21979 16H3.54948C3.07734 16 2.62454 15.8127 2.29068 15.4793C1.95683 15.1459 1.76927 14.6937 1.76927 14.2222V8.36791L1.50847 8.62836C1.34059 8.79028 1.11575 8.87987 0.88237 8.87785C0.648987 8.87582 0.425738 8.78234 0.260706 8.61753C0.095673 8.45272 0.00206168 8.22977 3.36483e-05 7.99671C-0.00199438 7.76364 0.0877231 7.5391 0.249863 7.37145L2.03007 5.59365L7.3707 0.260258Z" fill="currentColor"/></g><defs><clipPath id="h"><rect width="16" height="16" fill="white"/></clipPath></defs></svg>' },
+      { name: "chevron", label: "Chevron", fig: "Icon/Arrows/chevron", svg: '<svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M17.2071 9.04289C16.8166 8.65237 16.1834 8.65237 15.7929 9.04289L12 12.8358L8.20711 9.04289C7.81658 8.65237 7.18342 8.65237 6.79289 9.04289C6.40237 9.43342 6.40237 10.0666 6.79289 10.4571L11.2929 14.9571C11.6834 15.3476 12.3166 15.3476 12.7071 14.9571L17.2071 10.4571C17.5976 10.0666 17.5976 9.43342 17.2071 9.04289Z" fill="currentColor"/></svg>' },
+      { name: "search", label: "Search", fig: "Icon/Actions/search", svg: '<svg viewBox="0 0 24 24" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.4896 4.0004C14.0733 4.00061 16.9779 6.90598 16.9779 10.4897C16.9777 14.0732 14.0731 16.9777 10.4896 16.9779C6.90595 16.9779 4.00058 14.0733 4.00037 10.4897C4.00037 6.90585 6.90582 4.0004 10.4896 4.0004ZM16.528 15.566C17.6826 14.1941 18.3782 12.4231 18.3783 10.4897C18.3783 6.13278 14.8465 2.60022 10.4896 2.60001C6.13262 2.60001 2.59998 6.13265 2.59998 10.4897C2.60019 14.8465 6.13275 18.3783 10.4896 18.3783C12.4231 18.3782 14.194 17.6826 15.566 16.528C15.5945 16.575 15.6291 16.6194 15.6697 16.66L20.2107 21.2C20.4841 21.4733 20.9266 21.4733 21.2 21.2C21.4733 20.9267 21.4733 20.4841 21.2 20.2107L16.6599 15.6697C16.6193 15.6291 16.575 15.5946 16.528 15.566Z" fill="currentColor"/></svg>' },
+      { name: "mic", label: "Microphone", fig: "Icon/Actions/microphone", svg: '<svg viewBox="0 0 24 24" fill="none"><path d="M12 2C12.7956 2 13.5587 2.31607 14.1213 2.87868C14.6839 3.44129 15 4.20435 15 5V11C15 11.7956 14.6839 12.5587 14.1213 13.1213C13.5587 13.6839 12.7956 14 12 14C11.2044 14 10.4413 13.6839 9.87868 13.1213C9.31607 12.5587 9 11.7956 9 11V5C9 4.20435 9.31607 3.44129 9.87868 2.87868C10.4413 2.31607 11.2044 2 12 2ZM19 11C19 14.53 16.39 17.44 13 17.93V21H11V17.93C7.61 17.44 5 14.53 5 11H7C7 12.3261 7.52678 13.5979 8.46447 14.5355C9.40215 15.4732 10.6739 16 12 16C13.3261 16 14.5979 15.4732 15.5355 14.5355C16.4732 13.5979 17 12.3261 17 11H19Z" fill="currentColor"/></svg>' }
+    ];
+    var iconGrid = document.getElementById("icon-grid");
+    icons.forEach(function (ic) {
+      var tile = document.createElement("div");
+      tile.className = "icon-tile";
+      tile.innerHTML =
+        '<div class="glyph">' + ic.svg + '</div>' +
+        '<div class="name">' + ic.label + '</div>' +
+        '<div class="fig-name">' + ic.fig + '</div>';
+      iconGrid.appendChild(tile);
     });
   </script>
 </body>
