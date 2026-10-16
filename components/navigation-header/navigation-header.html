@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Navigation Header — Nuclear</title>
+  <link rel="stylesheet" href="../../tokens.css" />
+  <link rel="stylesheet" href="navigation-header.css" />
+  <style>
+    body { background: var(--bg-canvas); padding: 24px; display: flex; flex-direction: column; gap: 16px; font-family: var(--font-sans); }
+    .frame { width: 360px; }
+  </style>
+</head>
+<body>
+  <div class="frame">
+    <header class="nav-header" data-variant="light">
+      <div class="nav-header__row">
+        <button class="nav-header__greeting" aria-expanded="false">
+          Home <span aria-hidden="true">▾</span>
+        </button>
+        <div class="nav-header__status" aria-label="Account status">
+          <span class="overline-xsmall">My Coins</span>
+          <span class="nav-header__coins">75</span>
+        </div>
+      </div>
+      <p class="nav-header__address caption-large-regular">EMP 12, Thakur Village, Ka…</p>
+      <form class="nav-header__search" role="search">
+        <label for="nav-search-light" class="visually-hidden">Search</label>
+        <button type="button" aria-label="Search">🔍</button>
+        <input id="nav-search-light" class="body-large-regular" type="search" placeholder="Search for 'onion'" />
+        <button type="button" aria-label="Voice search">🎤</button>
+      </form>
+    </header>
+  </div>
+
+  <div class="frame">
+    <header class="nav-header" data-variant="dark">
+      <div class="nav-header__row">
+        <button class="nav-header__greeting" aria-expanded="false">
+          Home <span aria-hidden="true">▾</span>
+        </button>
+        <div class="nav-header__status" aria-label="Account status">
+          <span class="overline-xsmall">My Coins</span>
+          <span class="nav-header__coins">75</span>
+        </div>
+      </div>
+      <p class="nav-header__address caption-large-regular">EMP 12, Thakur Village, Ka…</p>
+      <form class="nav-header__search" role="search">
+        <label for="nav-search-dark" class="visually-hidden">Search</label>
+        <button type="button" aria-label="Search">🔍</button>
+        <input id="nav-search-dark" class="body-large-regular" type="search" placeholder="Search for 'onion'" />
+        <button type="button" aria-label="Voice search">🎤</button>
+      </form>
+    </header>
+  </div>
+</body>
+</html>

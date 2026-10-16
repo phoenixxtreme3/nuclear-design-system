@@ -1,0 +1,65 @@
+/* Nuclear — generated from tokens.json. Do not hand-edit; re-export from Figma (Nuclear v2.0). */
+
+:root {
+  /* Color */
+  --brand-primary: #b8238e;
+  --content-primary: #000000;
+  --content-secondary: #616161;
+  --content-faintest: #eeeeee;
+  --content-on-color: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-subtle: #fafafa;
+  --bg-canvas: #eeeeee;
+  --bg-inverse: #212121;
+  --border-default: #e0e0e0;
+  --border-emphasis: #757575;
+  --border-strongest: #212121;
+  --nav-top-title: var(--content-primary);
+  --nav-top-title-inverse: var(--content-on-color);
+
+  /* Type */
+  --font-sans: "Helvetica Neue", Helvetica, Arial, "Lato", sans-serif;
+
+  /* Spacing */
+  --space-2xs: 4px;
+  --space-xs: 8px;
+  --space-sm: 12px;
+  --space-xl: 24px;
+
+  /* Size */
+  --icon-md: 24px;
+}
+
+/* Type styles */
+.title-large-black {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 900;
+}
+.title-medium-black {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 900;
+}
+.body-large-regular {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+.caption-large-regular {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+}
+.overline-xsmall {
+  font-family: var(--font-sans);
+  font-size: 8px;
+  line-height: 10px;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
