@@ -36,6 +36,19 @@
   cursor: pointer;
 }
 
+.nav-header__greeting svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.nav-header__greeting svg.chevron {
+  width: 24px;
+  height: 24px;
+  opacity: 0.7;
+  margin-left: -4px;
+}
+
 .nav-header__address {
   font-size: 12px;
   color: var(--fg-muted);
@@ -73,6 +86,14 @@
   padding: 0;
   cursor: pointer;
   line-height: 1;
+  color: var(--content-secondary, #616161);
+  flex: none;
+}
+
+.nav-header__search svg {
+  width: 20px;
+  height: 20px;
+  display: block;
 }
 
 .visually-hidden {
